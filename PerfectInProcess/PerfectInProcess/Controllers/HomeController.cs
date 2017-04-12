@@ -11,16 +11,16 @@ namespace PerfectInProcess.Controllers
     {
         // GET: Home
         public ActionResult Index()
-        {            
-            Home Visitor = new Home();
+        {       
+            
+            Home Visitor = new Home();            
             Visitor.GetVisitorCount();
 
             Visitor.VisitorCount += 1;
 
             Visitor.SetVisitorCount();
 
-
-            return View("Index");
+            return View("Index",Visitor);
         }
     }
 }

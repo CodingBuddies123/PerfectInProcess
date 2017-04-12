@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using PerfectInProcess.Models;
 
 namespace PerfectInProcess.Models
 {
