@@ -250,3 +250,13 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+[Aa]pp.config
+[Aa]ppSettings.config
+[Cc]onnectionStrings.config
+[Ll]og4net.config
+[Rr]eportingSettings.config
+[Ss]omething.config
+# Care! MVC has nested web.configs int its views folder.
+# Only ignore the one in the root
+/MyWebApp/[Ww]eb.config
