@@ -260,3 +260,4 @@ paket-files/
 # Care! MVC has nested web.configs int its views folder.
 # Only ignore the one in the root
 /MyWebApp/[Ww]eb.config
+PerfectInProcess/PerfectInProcess/PrivateSettings.config
