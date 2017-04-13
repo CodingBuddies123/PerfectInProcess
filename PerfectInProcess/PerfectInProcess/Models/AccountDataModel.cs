@@ -11,7 +11,7 @@ namespace PerfectInProcess.Models
 
         public Boolean CheckPermissions(String Controller, String Action)
         {
-            foreach(PermissionDataModel permission in Permissions)
+            foreach (PermissionDataModel permission in Permissions)
             {
                 if (permission.Action.ToLower() == Action.ToLower() && permission.Controller.ToLower() == Controller.ToLower())
                     return true;
