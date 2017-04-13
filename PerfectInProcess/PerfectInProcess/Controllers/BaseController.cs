@@ -11,6 +11,7 @@ namespace PerfectInProcess.Controllers
     {
         private String Controller;
         private String Action;
+        private Object Account;
 
         public BaseController()
         {
@@ -21,8 +22,10 @@ namespace PerfectInProcess.Controllers
         {
             base.Initialize(requestContext);
 
-            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
-            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
+            string Action = this.ControllerContext.RouteData.Values["action"].ToString();
+            string Controller = this.ControllerContext.RouteData.Values["controller"].ToString();
+
+
         }
     }
 }
