@@ -11,17 +11,18 @@ namespace PerfectInProcess.Controllers
     {
         private String Controller;
         private String Action;
-        public BaseController(String controller, String action)
+
+        public BaseController()
         {
-            Controller = controller;
-            Action = action;
+  
         }
 
         protected override void Initialize(RequestContext requestContext)
         {
             base.Initialize(requestContext);
 
-
+            string actionName = this.ControllerContext.RouteData.Values["action"].ToString();
+            string controllerName = this.ControllerContext.RouteData.Values["controller"].ToString();
         }
     }
 }
