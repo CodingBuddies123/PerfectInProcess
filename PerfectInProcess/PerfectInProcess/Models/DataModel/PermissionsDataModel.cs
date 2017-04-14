@@ -23,5 +23,25 @@ namespace PerfectInProcess.Models.DataModel
             Action = action;
             Hidden = permissionGroupName.ToLower() == "hidden";
         }
+
+        public PermissionsDataModel()
+        {
+
+        }
+
+        public Boolean CreatePermission(string permissionName, string permissionGroupName, string controller, string action)
+        {
+            return false;
+        }
+
+        public Boolean EditPermission(string permissionName, string permissionGroupName, string controller, string action)
+        {
+            return false;
+        }
+
+        public Boolean DeletePermission()
+        {
+            return false;
+        }
     }
 }

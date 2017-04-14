@@ -121,6 +121,7 @@
     <Compile Include="Models\DataModel\AccountDataModel.cs" />
     <Compile Include="Models\DataModel\BaseDataModel.cs" />
     <Compile Include="Models\DataModel\PermissionsDataModel.cs" />
+    <Compile Include="Models\DataModel\RoleDataModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
