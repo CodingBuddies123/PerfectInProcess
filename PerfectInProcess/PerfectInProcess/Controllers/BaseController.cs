@@ -10,7 +10,7 @@ namespace PerfectInProcess.Controllers
 {
     public class BaseController : Controller
     {
-        AccountDataModel Account;
+        protected AccountDataModel Account;
         string Controller;
         string Action;
 
@@ -19,8 +19,6 @@ namespace PerfectInProcess.Controllers
             base.Initialize(requestContext);
             this.LoadBase();
             this.VerifyPermissions();
-
-            ViewBag.Account = Account;
         }
 
         private void LoadBase()

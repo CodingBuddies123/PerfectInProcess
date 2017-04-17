@@ -9,7 +9,8 @@ namespace PerfectInProcess.Models.DataModel
     {
         int RoleID;
         String RoleName;
-        List<PermissionsDataModel> Permissions = new List<PermissionsDataModel>();
+        public List<PermissionsDataModel> Permissions { get; private set; } = new List<PermissionsDataModel>();
+        public List<String> PermissionGroups { get; private set; } = new List<string>();
 
         public RoleDataModel(int roleID)
         {
@@ -24,6 +25,12 @@ namespace PerfectInProcess.Models.DataModel
             Permissions.Add(new PermissionsDataModel(3, "Home", "Home", "Home", "Home"));
             Permissions.Add(new PermissionsDataModel(4, "Contact Us", "Home", "Home", "Contact Us"));
             Permissions.Add(new PermissionsDataModel(5, "About Us", "Home", "Home", "About Us"));
+
+            foreach(PermissionsDataModel p in Permissions)
+            {
+                if (!PermissionGroups.Contains(p.PermissionGroupName))
+                    PermissionGroups.Add(p.PermissionGroupName);
+            }
         }
 
         public Boolean VerifyPermission(string controller, string action)
