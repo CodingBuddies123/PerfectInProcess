@@ -13,12 +13,17 @@ namespace PerfectInProcess.Models.DataModel
 
         public RoleDataModel(int roleID)
         {
-
+            
         }
 
         public RoleDataModel()
         {
-
+            //static data
+            Permissions.Add(new PermissionsDataModel(1, "Register Account", "Account", "Account", "Register"));
+            Permissions.Add(new PermissionsDataModel(2, "Login", "Account", "Account", "Login"));
+            Permissions.Add(new PermissionsDataModel(3, "Home", "Home", "Home", "Home"));
+            Permissions.Add(new PermissionsDataModel(4, "Contact Us", "Home", "Home", "Contact Us"));
+            Permissions.Add(new PermissionsDataModel(5, "About Us", "Home", "Home", "About Us"));
         }
 
         public Boolean VerifyPermission(string controller, string action)
