@@ -19,6 +19,8 @@ namespace PerfectInProcess.Controllers
             base.Initialize(requestContext);
             this.LoadBase();
             this.VerifyPermissions();
+
+            ViewBag.Account = Account;
         }
 
         private void LoadBase()
@@ -27,6 +29,7 @@ namespace PerfectInProcess.Controllers
             if(Session["AccountDataModel"] == null)
             {
                 Session["AccountDataModel"] = new AccountDataModel();
+                Account = new AccountDataModel();
             }
             else
             {
@@ -72,7 +75,7 @@ namespace PerfectInProcess.Controllers
             Controller = this.ControllerContext.RouteData.Values["controller"].ToString();
             Action = this.ControllerContext.RouteData.Values["action"].ToString();
 
-            if(!Account.Role.VerifyPermission(Controller, Action))
+            if (!Account.Role.VerifyPermission(Controller, Action))
             {
                 //redirect
             }
