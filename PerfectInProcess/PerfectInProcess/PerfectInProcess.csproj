@@ -223,8 +223,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -248,8 +248,7 @@
     </Content>
     <Content Include="ConnectionStrings.config" />
     <Content Include="PrivateSettings.config" />
-    <Content Include="Views\Register\Register.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Style\Admin2\less\mixins.less" />
     <Content Include="Style\Admin2\less\sb-admin-2.less" />
     <Content Include="Style\Admin2\less\variables.less" />
@@ -301,6 +300,7 @@
     <Content Include="Style\Admin2\vendor\font-awesome\scss\_variables.scss" />
     <Content Include="Views\Layouts\_DefaultLayout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

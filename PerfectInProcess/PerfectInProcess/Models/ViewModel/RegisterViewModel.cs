@@ -6,7 +6,7 @@ using System.Web;
 
 namespace PerfectInProcess.Models.ViewModel
 {
-    public class RegisterViewModel : BaseViewModel
+    public class RegisterViewModel
     {
         
         [Required(ErrorMessage = "User Name field is required")]

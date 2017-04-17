@@ -229,18 +229,16 @@ namespace PerfectInProcess.Models.DataModel
 
             if (localHost.Contains("localhost"))
             {
-                urlWithTokenIdAndPassword  = "http://" + localHost + "/Register/EmailVerify" + "?tokenId=" + TokenId + "?token=" + TokenPassword;
+                urlWithTokenIdAndPassword  = "http://" + localHost + "/Account/EmailVerify" + "?tokenId=" + TokenId + "?token=" + TokenPassword;
             }
             else
             {
                 //URL when site is hosted
                 urlWithTokenIdAndPassword = urlWithTokenIdAndPassword = "http://www.perfectinprocess.com" + "/Register/VerifyEmail" + "?tokenId=" + TokenId + "?token=" + TokenPassword;
             }
-
-
-
-
+            
             SendVerificationEmailToken(urlWithTokenIdAndPassword);
+
         }
         private void GenerateSalt()
         {
@@ -295,7 +293,8 @@ namespace PerfectInProcess.Models.DataModel
                 mail.Subject = "Verify your email";
                 //going to say click link to activate account
                 //<a href="mailto:email@example.com">Your visible link text</a>
-                mail.Body = "Hello " + " <a href = " + URL + ">Click here to activate your account.</a>";
+                mail.IsBodyHtml = true;
+                mail.Body = "Hello " +"<a href=" +'"'+ URL + '"' + ">Click here to activate your account.</a>";
 
                 SmtpServer.Port = 587;
                 SmtpServer.Credentials = new NetworkCredential("Admin@PerfectInProcess.com", ConfigurationManager.AppSettings["MAIL_PASSWORD"]);

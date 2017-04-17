@@ -10,7 +10,7 @@ namespace PerfectInProcess.Controllers
 {
     public class BaseController : Controller
     {
-        AccountDataModel Account;
+        protected AccountDataModel Account;
         string Controller;
         string Action;
 
