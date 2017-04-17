@@ -1,7 +1,8 @@
 ﻿@model PerfectInProcess.Models.ViewModel.RegisterViewModel
 
 @{
-    Layout = null;
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Layouts/_DefaultLayout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -15,7 +16,7 @@
     <div>
         @using (Html.BeginForm("RegisterAccount", "Register", FormMethod.Post))
         {
-            <fieldset class="form-horizontal align-center" style="height:800px;width:auto">
+            <fieldset class="form-horizontal align-center" style="height:400px;width:600px">
                 <legend class="col-lg-10 col-lg-offset-4">Register</legend>
                 <div class="form-group">
                     <label for="FirstName" id="register" class="col-lg-2">First Name</label>

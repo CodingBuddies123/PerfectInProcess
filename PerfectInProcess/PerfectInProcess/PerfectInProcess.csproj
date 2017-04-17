@@ -224,12 +224,9 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-<<<<<<< HEAD
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RegisterController.cs" />
-=======
     <Compile Include="Controllers\HomeController.cs" />
->>>>>>> refs/remotes/origin/master
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -238,12 +235,9 @@
     <Compile Include="Models\DataModel\PermissionsDataModel.cs" />
     <Compile Include="Models\DataModel\RegisterDataModel.cs" />
     <Compile Include="Models\DataModel\RoleDataModel.cs" />
-<<<<<<< HEAD
     <Compile Include="Models\ViewModel\LoginViewModel.cs" />
     <Compile Include="Models\ViewModel\RegisterViewModel.cs" />
-=======
     <Compile Include="Models\ViewModel\BaseViewModel.cs" />
->>>>>>> refs/remotes/origin/master
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -254,10 +248,8 @@
     </Content>
     <Content Include="ConnectionStrings.config" />
     <Content Include="PrivateSettings.config" />
-<<<<<<< HEAD
     <Content Include="Views\Register\Register.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
-=======
     <Content Include="Style\Admin2\less\mixins.less" />
     <Content Include="Style\Admin2\less\sb-admin-2.less" />
     <Content Include="Style\Admin2\less\variables.less" />
@@ -309,7 +301,6 @@
     <Content Include="Style\Admin2\vendor\font-awesome\scss\_variables.scss" />
     <Content Include="Views\Layouts\_DefaultLayout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
->>>>>>> refs/remotes/origin/master
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -319,11 +310,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-<<<<<<< HEAD
-=======
     <Folder Include="Style\css\" />
     <Folder Include="Style\js\" />
->>>>>>> refs/remotes/origin/master
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <PropertyGroup>

@@ -75,17 +75,11 @@ namespace PerfectInProcess.Controllers
             Controller = this.ControllerContext.RouteData.Values["controller"].ToString();
             Action = this.ControllerContext.RouteData.Values["action"].ToString();
 
-<<<<<<< HEAD
-            //if(!Account.Role.VerifyPermission(Controller, Action))
-            //{
-            //    //redirect
-            //}
-=======
             if (!Account.Role.VerifyPermission(Controller, Action))
             {
                 //redirect
             }
->>>>>>> refs/remotes/origin/master
+
         }
     }
 }
