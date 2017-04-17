@@ -72,10 +72,10 @@ namespace PerfectInProcess.Controllers
             Controller = this.ControllerContext.RouteData.Values["controller"].ToString();
             Action = this.ControllerContext.RouteData.Values["action"].ToString();
 
-            if(!Account.Role.VerifyPermission(Controller, Action))
-            {
-                //redirect
-            }
+            //if(!Account.Role.VerifyPermission(Controller, Action))
+            //{
+            //    //redirect
+            //}
         }
     }
 }
