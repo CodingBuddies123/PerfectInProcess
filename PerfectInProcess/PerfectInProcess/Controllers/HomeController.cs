@@ -9,9 +9,10 @@ namespace PerfectInProcess.Controllers
     public class HomeController : BaseController
     {
         // GET: Home
-        public ActionResult Index()
+        public ActionResult Index(Models.ViewModel.BaseViewModel view)
         {
-            return View();
+            view.Account = base.Account;
+            return View(view);
         }
     }
 }

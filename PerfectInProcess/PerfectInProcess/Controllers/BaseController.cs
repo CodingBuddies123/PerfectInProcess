@@ -19,8 +19,6 @@ namespace PerfectInProcess.Controllers
             base.Initialize(requestContext);
             this.LoadBase();
             this.VerifyPermissions();
-
-            ViewBag.Account = Account;
         }
 
         private void LoadBase()
