@@ -16,6 +16,7 @@ namespace PerfectInProcess.Models.DataModel
 {
     public class AccountDataModel : BaseDataModel
     {
+<<<<<<< HEAD
         public RoleDataModel Role { get; private set; }
         public ArrayList listOfErrors = new ArrayList();
 
@@ -38,6 +39,9 @@ namespace PerfectInProcess.Models.DataModel
             FirstName = firstName;
             LastName = lastName;
         }
+=======
+        public RoleDataModel Role { get; private set; } = new RoleDataModel();
+>>>>>>> refs/remotes/origin/master
        
     }
    
