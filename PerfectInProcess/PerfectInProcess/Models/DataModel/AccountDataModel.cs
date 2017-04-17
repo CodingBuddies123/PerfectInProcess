@@ -16,7 +16,7 @@ namespace PerfectInProcess.Models.DataModel
 {
     public class AccountDataModel : BaseDataModel
     {
-        public RoleDataModel Role { get; private set; }
+        public RoleDataModel Role { get; private set; } = new RoleDataModel();
         public ArrayList listOfErrors = new ArrayList();
 
         public int AccountId {get; set;}

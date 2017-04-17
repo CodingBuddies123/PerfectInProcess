@@ -5,7 +5,7 @@ using System.Web;
 
 namespace PerfectInProcess.Models.ViewModel
 {
-    public class LoginViewModel
+    public class LoginViewModel : BaseViewModel
     {
 
     }
