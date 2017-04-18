@@ -14,10 +14,13 @@
     <title>Verify Email</title>
 </head>
 <body>
-    <div>
-        <p>A new verification link has been sent to your email on file. All accounts must be verifed before your granted access.</p>
-
-      
+    <div>   
+            <p>
+                Your link expired, we have sent a new verification email with a confirmation link to your email address.<br />
+                Please follow the link to continue the registration proccess. <br />
+                Please allow 5-10 minutes for this message to arrive.<br />
+                If email never arrives <a href="@Url.Action("ResendVerification","Account")">click here</a> to resend.
+            </p>
     </div>
 </body>
 </html>
