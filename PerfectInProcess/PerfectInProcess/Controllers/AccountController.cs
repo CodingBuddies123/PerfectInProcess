@@ -10,8 +10,7 @@ namespace PerfectInProcess.Controllers
 {
     public class AccountController : BaseController
     {
-        // GET: Account
-     
+        // GET: Account 
         public ActionResult Register()
         {
             return View("Register");
