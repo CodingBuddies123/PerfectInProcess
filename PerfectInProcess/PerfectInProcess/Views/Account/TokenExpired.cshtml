@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Verify Email";
+    Layout = "~/Views/Layouts/_DefaultLayout.cshtml";
+}
+
+<h2>Login</h2>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Verify Email</title>
+</head>
+<body>
+    <div>   
+            <p>
+                Your link expired, we have sent a new verification email with a confirmation link to your email address.<br />
+                Please follow the link to continue the registration proccess. <br />
+                Please allow 5-10 minutes for this message to arrive.<br />
+                If email never arrives <a href="@Url.Action("ResendVerification","Account")">click here</a> to resend.
+            </p>
+    </div>
+</body>
+</html>
+

@@ -17,7 +17,7 @@ namespace PerfectInProcess.Models.DataModel
     {
         public ArrayList listOfErrors = new ArrayList();
 
-        private int AccountId { get; set; }
+        public int AccountId { get; set; }
         private string UserName { get; set; }
         private string Email { get; set; }
         private string FirstName { get; set; }
@@ -31,16 +31,33 @@ namespace PerfectInProcess.Models.DataModel
         {
 
         }
-        public RegisterDataModel(AccountDataModel Account,string password)
+        /// <summary>
+        /// Constructor when account is being registered. once register account is instanciated the register account method will continue though the registration process
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="email"></param>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="password"></param>
+        public RegisterDataModel(string userName, string email, string firstName,string lastName,string password)
         {
-
-            UserName = Account.UserName;
-            Email = Account.Email;
-            FirstName = Account.FirstName;
-            LastName = Account.LastName;
+            UserName = userName;
+            Email = email;
+            FirstName = firstName;
+            LastName = lastName;
             Password = password;
 
             RegisterAccount(Password);
+        }
+        /// <summary>
+        /// Constructor which will be used when we want to resend verification codes to users.
+        /// </summary>       
+        /// <param name="email"></param>       
+        /// <param name="accountID"></param>
+        public RegisterDataModel(string email, int accountID)
+        {            
+            Email = email;           
+            AccountId = accountID;       
         }
         /// <summary>
         /// This method will hash the password using a salt then add those values to the DB if the an account with the username and or email isnt taken
@@ -144,12 +161,13 @@ namespace PerfectInProcess.Models.DataModel
 
         public void VerifyEmailTokenIDTokenPassword(string tokenID, string tokenPassword)
         {
+            Guid tokenIDGUID = new Guid(tokenID);
 
             try
             {
                 SqlConnection SqlConnection = new SqlConnection(Convert.ToString(ConfigurationManager.ConnectionStrings["DefaultConnection"]));
 
-                Guid tokenIDGUID = new Guid(tokenID);
+               
 
                 using (SqlCommand command = new SqlCommand("spVerifyEmailLinkToken", SqlConnection))
                 {
@@ -189,13 +207,13 @@ namespace PerfectInProcess.Models.DataModel
                 else
                 {
                     //token was verifed and account was set to active status and all tokens for this account all set to invalid
-                    ChangeAccountStausActive(tokenID, tokenPassword);
+                    ChangeAccountStausActive(tokenIDGUID, tokenPassword);
                 }
             }
 
         }
 
-        private void ChangeAccountStausActive(string tokenID, string tokenPassword)
+        private void ChangeAccountStausActive(Guid tokenID, string tokenPassword)
         {
 
             try
@@ -205,7 +223,7 @@ namespace PerfectInProcess.Models.DataModel
                 using (SqlCommand command = new SqlCommand("spAccountStatusSetActive", SqlConnection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add("@TokenId", SqlDbType.VarChar).Value = tokenID;
+                    command.Parameters.Add("@TokenId", SqlDbType.UniqueIdentifier).Value = tokenID;
                     command.Parameters.Add("@TokenPassword", SqlDbType.VarChar).Value = tokenPassword;
                     command.Parameters.Add("@AccountId", SqlDbType.Int).Value = AccountId;
                     SqlConnection.Open();
@@ -219,7 +237,7 @@ namespace PerfectInProcess.Models.DataModel
                 listOfErrors.Add(ex.Message);
             }
         }
-        private void GenerateTokeAndSendEmailVerification()
+        public void GenerateTokeAndSendEmailVerification()
         {
             GenerateTokenPassword();
             AddEmailVerificationInfoToDB();
@@ -287,12 +305,11 @@ namespace PerfectInProcess.Models.DataModel
                 SmtpClient SmtpServer = new SmtpClient("mail.perfectinprocess.com");
 
                 mail.From = new MailAddress("Admin@PerfectInProcess.com");
-                mail.To.Add("sisco035@gmail.com");
+                //mail.To.Add("sisco035@gmail.com");
                 // for testing I have this set to my email 
-                //mail.To.Add(Email);
+                mail.To.Add(Email);
                 mail.Subject = "Verify your email";
-                //going to say click link to activate account
-                //<a href="mailto:email@example.com">Your visible link text</a>
+                //going to say click link to activate account               
                 mail.IsBodyHtml = true;
                 mail.Body = "Hello " +"<a href=" +'"'+ URL + '"' + ">Click here to activate your account.</a>";
 

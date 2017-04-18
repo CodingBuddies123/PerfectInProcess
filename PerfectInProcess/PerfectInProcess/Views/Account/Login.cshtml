@@ -16,18 +16,18 @@
 </head>
 <body>
     <div>
-        @using (Html.BeginForm("RegisterAccount", "Register", FormMethod.Post))
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
         {
             <fieldset class="form-horizontal align-center" style="height:400px;width:600px">
                 <legend class="col-lg-10 col-lg-offset-6">Login</legend>
                 <div class="form-group">
-                    <label for="FirstName" id="register" class="col-lg-2">First Name</label>
+                    <label for="Username" id="UserName" class="col-lg-2">User name</label>
                     <div class="col-lg-10">
                         @Html.TextBoxFor(Model => Model.UserName, new { @class = "form-control registertextboxes", id = "UserName", placeholder = "Username or Email"})
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="LastName" id="register" class="col-lg-2 control-label">Last Name</label>
+                    <label for="PAssword" id="register" class="col-lg-2 control-label">Password</label>
                     <div class="col-lg-10">
                         @Html.PasswordFor(Model => Model.Password, new { @class = "form-control registertextboxes", id = "Password", placeholder = "Password"  })
                     </div>
