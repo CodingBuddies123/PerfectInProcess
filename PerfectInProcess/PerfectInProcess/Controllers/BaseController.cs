@@ -19,6 +19,9 @@ namespace PerfectInProcess.Controllers
             base.Initialize(requestContext);
             this.LoadBase();
             this.VerifyPermissions();
+            ViewBag.Permissions = GenerateViewBagPermissionList();
+            ViewBag.PermissionGroups = GenerateViewBagPermissionGroupList();
+            
         }
 
         private void LoadBase()
@@ -40,6 +43,26 @@ namespace PerfectInProcess.Controllers
                     Session["AccountDataModel"] = new AccountDataModel();
                 }
             }
+        }
+
+        protected List<String[]> GenerateViewBagPermissionList()
+        {
+            List<String[]> ViewBagPermission = new List<String[]>();
+
+            foreach (PermissionsDataModel P in Account.Role.Permissions)
+                ViewBagPermission.Add(new string[] { P.PermissionName, P.PermissionGroupName, P.Action, P.Controller });
+
+            return ViewBagPermission;
+        }
+
+        protected List<String> GenerateViewBagPermissionGroupList()
+        {
+            List<String> ViewBagPermissionGroup = new List<String>();
+
+            foreach (string P in Account.Role.PermissionGroups)
+                ViewBagPermissionGroup.Add(P);
+
+            return ViewBagPermissionGroup;
         }
 
         protected void SaveBase()
