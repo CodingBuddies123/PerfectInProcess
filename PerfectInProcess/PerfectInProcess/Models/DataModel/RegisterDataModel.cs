@@ -144,12 +144,13 @@ namespace PerfectInProcess.Models.DataModel
 
         public void VerifyEmailTokenIDTokenPassword(string tokenID, string tokenPassword)
         {
+            Guid tokenIDGUID = new Guid(tokenID);
 
             try
             {
                 SqlConnection SqlConnection = new SqlConnection(Convert.ToString(ConfigurationManager.ConnectionStrings["DefaultConnection"]));
 
-                Guid tokenIDGUID = new Guid(tokenID);
+               
 
                 using (SqlCommand command = new SqlCommand("spVerifyEmailLinkToken", SqlConnection))
                 {
@@ -189,13 +190,13 @@ namespace PerfectInProcess.Models.DataModel
                 else
                 {
                     //token was verifed and account was set to active status and all tokens for this account all set to invalid
-                    ChangeAccountStausActive(tokenID, tokenPassword);
+                    ChangeAccountStausActive(tokenIDGUID, tokenPassword);
                 }
             }
 
         }
 
-        private void ChangeAccountStausActive(string tokenID, string tokenPassword)
+        private void ChangeAccountStausActive(Guid tokenID, string tokenPassword)
         {
 
             try
@@ -205,7 +206,7 @@ namespace PerfectInProcess.Models.DataModel
                 using (SqlCommand command = new SqlCommand("spAccountStatusSetActive", SqlConnection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add("@TokenId", SqlDbType.VarChar).Value = tokenID;
+                    command.Parameters.Add("@TokenId", SqlDbType.UniqueIdentifier).Value = tokenID;
                     command.Parameters.Add("@TokenPassword", SqlDbType.VarChar).Value = tokenPassword;
                     command.Parameters.Add("@AccountId", SqlDbType.Int).Value = AccountId;
                     SqlConnection.Open();
