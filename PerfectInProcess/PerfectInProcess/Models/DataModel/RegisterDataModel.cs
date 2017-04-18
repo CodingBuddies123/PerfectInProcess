@@ -288,9 +288,9 @@ namespace PerfectInProcess.Models.DataModel
                 SmtpClient SmtpServer = new SmtpClient("mail.perfectinprocess.com");
 
                 mail.From = new MailAddress("Admin@PerfectInProcess.com");
-                mail.To.Add("sisco035@gmail.com");
+                //mail.To.Add("sisco035@gmail.com");
                 // for testing I have this set to my email 
-                //mail.To.Add(Email);
+                mail.To.Add(Email);
                 mail.Subject = "Verify your email";
                 //going to say click link to activate account
                 //<a href="mailto:email@example.com">Your visible link text</a>
