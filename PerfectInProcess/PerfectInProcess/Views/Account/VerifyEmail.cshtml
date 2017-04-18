@@ -15,12 +15,30 @@
     <div>
         <br />
         <br />
-        <br />
+        <br />    
 
-       <p>We have sent an email with a confirmation link to your email address.<br />
-        Please follow the link to continue the registration proccess. <br />
-        Please allow 5-10 minutes for this message to arrive.<br />
-        If email never arrives <a href="url">click here</a> to resend.</p>
+        @*If link was clicked make i took the link out so users can not spam click the click here button to keep sending vberification emails*@
+        @if (ViewBag.Sent != null)
+        {
+            <p>
+                We have sent an email with a confirmation link to your email address.<br />
+                Please follow the link to continue the registration proccess. <br />
+                Please allow 5-10 minutes for this message to arrive.<br />                
+            </p>
+
+            <p><b>@Html.Raw(ViewBag.Sent)</b></p>
+        }
+        else
+        {
+            <p>
+                We have sent an email with a confirmation link to your email address.<br />
+                Please follow the link to continue the registration proccess. <br />
+                Please allow 5-10 minutes for this message to arrive.<br />
+                If email never arrives <a href="@Url.Action("ResendVerification","Account")">click here</a> to resend.
+            </p>
+        }
+
+
     </div>
 </body>
 </html>

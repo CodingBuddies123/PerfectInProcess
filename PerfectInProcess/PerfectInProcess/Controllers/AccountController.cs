@@ -20,10 +20,9 @@ namespace PerfectInProcess.Controllers
         public ActionResult RegisterAccount(RegisterViewModel viewModel)
         {
             if (ModelState.IsValid)
-            {
-                AccountDataModel Account = new AccountDataModel(viewModel.UserName, viewModel.Email, viewModel.FirstName, viewModel.LastName);
-                RegisterDataModel RegisterAccount = new RegisterDataModel(Account, viewModel.Password);
-
+            {               
+                RegisterDataModel RegisterAccount = new RegisterDataModel(viewModel.UserName, viewModel.Email, viewModel.FirstName, viewModel.LastName,
+                    viewModel.Password);
 
                 if (RegisterAccount.listOfErrors.Count != 0)
                 {
@@ -36,11 +35,11 @@ namespace PerfectInProcess.Controllers
                     return View("Register");
                 }
 
-                base.Account.FirstName = Account.FirstName;
-                base.Account.FirstName = Account.LastName;
-                base.Account.FirstName = Account.Email;
-                base.SaveBase();
-
+                base.Account.FirstName = viewModel.FirstName;
+                base.Account.LastName = viewModel.LastName;
+                base.Account.Email = viewModel.Email;
+                base.Account.AccountId = RegisterAccount.AccountId;
+                base.SaveBase();                 
                 
                 return View("VerifyEmail");
             }
@@ -76,6 +75,29 @@ namespace PerfectInProcess.Controllers
 
             //Directs to Login page
             return View("Login");
+        }
+        public ActionResult ResendVerification()
+        {            
+            RegisterDataModel RegisteredAccount = new RegisterDataModel(base.Account.Email,base.Account.AccountId);
+
+            RegisteredAccount.GenerateTokeAndSendEmailVerification();             
+
+            if (RegisteredAccount.listOfErrors.Count != 0)
+            {
+                foreach (string error in RegisteredAccount.listOfErrors)
+                {
+                    ModelState.AddModelError("", error);
+                }
+              
+                //Shows expired token page so user knows a new link was sent
+                return View("TokenExpired");
+            }
+
+
+            ViewBag.Sent = "New verification email was sent to the email on file.";
+
+            //Directs to Login page
+            return View("VerifyEmail");
         }
     }
 }

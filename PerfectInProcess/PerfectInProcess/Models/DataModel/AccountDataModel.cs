@@ -29,15 +29,7 @@ namespace PerfectInProcess.Models.DataModel
         public AccountDataModel()
         {
 
-        }
-        public AccountDataModel(string userName,string email, string firstName,string lastName)
-        {      
-
-            UserName = userName;
-            Email = email;
-            FirstName = firstName;
-            LastName = lastName;
-        }
+        } 
        
     }
    

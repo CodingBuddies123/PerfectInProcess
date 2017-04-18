@@ -17,7 +17,7 @@ namespace PerfectInProcess.Models.DataModel
     {
         public ArrayList listOfErrors = new ArrayList();
 
-        private int AccountId { get; set; }
+        public int AccountId { get; set; }
         private string UserName { get; set; }
         private string Email { get; set; }
         private string FirstName { get; set; }
@@ -31,16 +31,33 @@ namespace PerfectInProcess.Models.DataModel
         {
 
         }
-        public RegisterDataModel(AccountDataModel Account,string password)
+        /// <summary>
+        /// Constructor when account is being registered. once register account is instanciated the register account method will continue though the registration process
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="email"></param>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <param name="password"></param>
+        public RegisterDataModel(string userName, string email, string firstName,string lastName,string password)
         {
-
-            UserName = Account.UserName;
-            Email = Account.Email;
-            FirstName = Account.FirstName;
-            LastName = Account.LastName;
+            UserName = userName;
+            Email = email;
+            FirstName = firstName;
+            LastName = lastName;
             Password = password;
 
             RegisterAccount(Password);
+        }
+        /// <summary>
+        /// Constructor which will be used when we want to resend verification codes to users.
+        /// </summary>       
+        /// <param name="email"></param>       
+        /// <param name="accountID"></param>
+        public RegisterDataModel(string email, int accountID)
+        {            
+            Email = email;           
+            AccountId = accountID;       
         }
         /// <summary>
         /// This method will hash the password using a salt then add those values to the DB if the an account with the username and or email isnt taken
@@ -220,7 +237,7 @@ namespace PerfectInProcess.Models.DataModel
                 listOfErrors.Add(ex.Message);
             }
         }
-        private void GenerateTokeAndSendEmailVerification()
+        public void GenerateTokeAndSendEmailVerification()
         {
             GenerateTokenPassword();
             AddEmailVerificationInfoToDB();
