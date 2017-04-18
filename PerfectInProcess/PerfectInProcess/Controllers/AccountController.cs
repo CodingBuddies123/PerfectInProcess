@@ -50,8 +50,7 @@ namespace PerfectInProcess.Controllers
             }
         }
         public ActionResult EmailVerify()
-        {
-            AccountDataModel Account = new AccountDataModel();
+        {         
             RegisterDataModel RegisteredAccount = new RegisterDataModel();
 
             //gets raw url clicked on by user and gets the tokenID and TokenPassword from the url
