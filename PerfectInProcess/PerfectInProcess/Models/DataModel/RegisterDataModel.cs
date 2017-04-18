@@ -292,8 +292,7 @@ namespace PerfectInProcess.Models.DataModel
                 // for testing I have this set to my email 
                 mail.To.Add(Email);
                 mail.Subject = "Verify your email";
-                //going to say click link to activate account
-                //<a href="mailto:email@example.com">Your visible link text</a>
+                //going to say click link to activate account               
                 mail.IsBodyHtml = true;
                 mail.Body = "Hello " +"<a href=" +'"'+ URL + '"' + ">Click here to activate your account.</a>";
 

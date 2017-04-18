@@ -41,8 +41,8 @@ namespace PerfectInProcess.Controllers
                 base.Account.FirstName = Account.Email;
                 base.SaveBase();
 
-                //redirect to login page account created want to send a message saying verification email was sent
-                return View("Login");
+                
+                return View("VerifyEmail");
             }
             else
             {
@@ -70,10 +70,9 @@ namespace PerfectInProcess.Controllers
                     ModelState.AddModelError("", error);
                 }
 
-                //return to register page and show errors
-                return View("Register");
+                //Shows expired token page so user knows a new link was sent
+                return View("TokenExpired");
             }
-
 
             //Directs to Login page
             return View("Login");
