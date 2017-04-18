@@ -290,12 +290,12 @@
                             </ul>
                         </li>
                         }
-                        @foreach (PerfectInProcess.Models.DataModel.PermissionsDataModel permission in Model.Account.Role.Permissions)
+                        @foreach (var permission in ViewBag.Permissions)
                         {
-                            if (permission.PermissionGroupName == "" || permission.PermissionGroupName == null)
+                            if (permission[1] == "" || permission[1] == null)
                             {
                                 <li>
-                                    <a href="login.html">Login Page</a>
+                                    <a onclick="location.href='@Url.Action(@permission[2], @permission[3])'">@permission[0]</a>
                                 </li>
                             }
                         }
