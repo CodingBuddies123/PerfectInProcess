@@ -1,5 +1,4 @@
-﻿@model PerfectInProcess.Models.ViewModel.BaseViewModel
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -274,17 +273,17 @@
                             </div>
                             <!-- /input-group -->
                         </li>
-                        @foreach (var permissiongroup in Model.Account.Role.PermissionGroups)
+                        @foreach (var permissiongroup in ViewBag.PermissionGroups)
                         {
                         <li>
                             <a href="#"><i class="fa fa-files-o fa-fw"></i> @permissiongroup<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
-                                @foreach (PerfectInProcess.Models.DataModel.PermissionsDataModel permission in Model.Account.Role.Permissions)
+                                @foreach (var permission in ViewBag.Permissions)
                                 {
-                                    if (permission.PermissionGroupName == permissiongroup)
+                                    if (permission[1] == permissiongroup)
                                     {
                                         <li>
-                                            <a onclick="location.href='@Url.Action(@permission.Action, @permission.Controller)'">@permission.PermissionName</a>
+                                            <a onclick="location.href='@Url.Action(@permission[2], @permission[3])'">@permission[0]</a>
                                         </li>
                                     }
                                 }
