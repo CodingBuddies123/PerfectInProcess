@@ -252,7 +252,7 @@ namespace PerfectInProcess.Models.DataModel
             else
             {
                 //URL when site is hosted
-                urlWithTokenIdAndPassword = urlWithTokenIdAndPassword = "http://www.perfectinprocess.com" + "/Account/VerifyEmail" + "?tokenId=" + TokenId + "?token=" + TokenPassword;
+                urlWithTokenIdAndPassword = urlWithTokenIdAndPassword = "http://www.perfectinprocess.com" + "/Account/EmailVerify" + "?tokenId=" + TokenId + "?token=" + TokenPassword;
             }
             
             SendVerificationEmailToken(urlWithTokenIdAndPassword);
