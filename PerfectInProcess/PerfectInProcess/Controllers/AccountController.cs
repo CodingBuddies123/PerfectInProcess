@@ -72,6 +72,7 @@ namespace PerfectInProcess.Controllers
                 return View("TokenExpired");
             }
 
+            ViewBag.Verifed = "You account has been verified and has been set to active status.";
             //Directs to Login page
             return View("Login");
         }
