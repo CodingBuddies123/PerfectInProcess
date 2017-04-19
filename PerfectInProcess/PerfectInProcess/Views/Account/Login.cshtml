@@ -46,7 +46,15 @@
 
                     @Html.ValidationSummary("", new { @class = "text-danger" })
                 </div>
-            </fieldset>
+
+                @if (ViewBag.Verifed != null)
+                {
+                    <p><b>@Html.Raw(ViewBag.Verifed)</b></p>
+
+                }
+            </fieldset>   
+
+          
         }
     </div>
 </body>
