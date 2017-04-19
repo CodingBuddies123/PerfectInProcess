@@ -99,5 +99,11 @@ namespace PerfectInProcess.Controllers
             //Directs to Login page
             return View("VerifyEmail");
         }
+
+        
+        public ActionResult Login()
+        {
+            return View("Login");
+        }
     }
 }
