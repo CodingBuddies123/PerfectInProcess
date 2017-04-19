@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace PerfectInProcess.Models.DataModel
 {
@@ -14,7 +17,49 @@ namespace PerfectInProcess.Models.DataModel
 
         public RoleDataModel(int roleID)
         {
-            
+            try
+            {
+                using (SqlConnection SqlConnection = new SqlConnection(Convert.ToString(ConfigurationManager.ConnectionStrings["DefaultConnection"])))
+                {
+                    SqlConnection.Open();
+                    using (SqlCommand command = new SqlCommand("spRole_LoadInfoByRoleID", SqlConnection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.Add("@RoleID", SqlDbType.Int).Value = roleID;
+                        command.Parameters.Add("@Error", SqlDbType.VarChar, -1).Direction = ParameterDirection.Output;
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        Permissions.Clear();
+                        Boolean first = true;
+                        
+                        while (reader.Read())
+                        {
+                            Permissions.Add(new PermissionsDataModel((int)reader[2], (string)reader[3], (string)reader[4], (string)reader[5], (string)reader[6]));
+
+                            if(!PermissionGroups.Contains((string)reader[4]))
+                            {
+                                PermissionGroups.Add((string)reader[4]);
+                            }
+
+                            if(first)
+                            {
+                                first = false;
+                                RoleID = (int)reader[0];
+                                RoleName = (string)reader[1];
+                            }
+                        }
+
+                    }
+                }
+
+                
+
+
+            }
+            catch (SqlException ex)
+            {
+                base.SetError(ex.Message);
+            }
         }
 
         public RoleDataModel()

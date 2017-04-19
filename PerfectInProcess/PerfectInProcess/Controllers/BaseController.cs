@@ -29,8 +29,8 @@ namespace PerfectInProcess.Controllers
             //Load Account
             if(Session["AccountDataModel"] == null)
             {
-                Session["AccountDataModel"] = new AccountDataModel();
                 Account = new AccountDataModel();
+                Session["AccountDataModel"] = Account;
             }
             else
             {
