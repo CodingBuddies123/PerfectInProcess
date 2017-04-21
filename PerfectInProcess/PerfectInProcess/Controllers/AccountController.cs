@@ -10,18 +10,20 @@ namespace PerfectInProcess.Controllers
 {
     public class AccountController : BaseController
     {
+
+        #region Register
         // GET: Account 
         public ActionResult Register()
         {
             return View("Register");
         }
-            
+
 
         [HttpPost]
         public ActionResult RegisterAccount(RegisterViewModel viewModel)
         {
             if (ModelState.IsValid)
-            {               
+            {
                 RegisterDataModel RegisterAccount = new RegisterDataModel(viewModel.UserName, viewModel.Email, viewModel.FirstName, viewModel.LastName,
                     viewModel.Password);
 
@@ -40,8 +42,8 @@ namespace PerfectInProcess.Controllers
                 base.Account.LastName = viewModel.LastName;
                 base.Account.Email = viewModel.Email;
                 base.Account.AccountId = RegisterAccount.AccountId;
-                base.SaveBase();                 
-                
+                base.SaveBase();
+
                 return View("VerifyEmail");
             }
             else
@@ -51,7 +53,7 @@ namespace PerfectInProcess.Controllers
             }
         }
         public ActionResult EmailVerify()
-        {         
+        {
             RegisterDataModel RegisteredAccount = new RegisterDataModel();
 
             //gets raw url clicked on by user and gets the tokenID and TokenPassword from the url
@@ -78,10 +80,10 @@ namespace PerfectInProcess.Controllers
             return View("Login");
         }
         public ActionResult ResendVerification()
-        {            
-            RegisterDataModel RegisteredAccount = new RegisterDataModel(base.Account.Email,base.Account.AccountId);
+        {
+            RegisterDataModel RegisteredAccount = new RegisterDataModel(base.Account.Email, base.Account.AccountId);
 
-            RegisteredAccount.GenerateTokeAndSendEmailVerification();             
+            RegisteredAccount.GenerateTokeAndSendEmailVerification();
 
             if (RegisteredAccount.listOfErrors.Count != 0)
             {
@@ -89,7 +91,7 @@ namespace PerfectInProcess.Controllers
                 {
                     ModelState.AddModelError("", error);
                 }
-              
+
                 //Shows expired token page so user knows a new link was sent
                 return View("TokenExpired");
             }
@@ -100,8 +102,10 @@ namespace PerfectInProcess.Controllers
             //Directs to Login page
             return View("VerifyEmail");
         }
+        #endregion
 
-        
+
+        #region Login
         public ActionResult Login()
         {
             return View("Login");
@@ -113,7 +117,7 @@ namespace PerfectInProcess.Controllers
 
             if (ModelState.IsValid)
             {
-                return View("Register");
+                return View("Index");
             }
             else
             {
@@ -122,6 +126,8 @@ namespace PerfectInProcess.Controllers
 
 
         }
+        #endregion
+
 
     }
 }
