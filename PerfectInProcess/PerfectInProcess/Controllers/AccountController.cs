@@ -15,6 +15,7 @@ namespace PerfectInProcess.Controllers
         {
             return View("Register");
         }
+            
 
         [HttpPost]
         public ActionResult RegisterAccount(RegisterViewModel viewModel)
@@ -105,5 +106,22 @@ namespace PerfectInProcess.Controllers
         {
             return View("Login");
         }
+
+        [HttpPost]
+        public ActionResult LoginSubmit(LoginViewModel viewModel)
+        {
+
+            if (ModelState.IsValid)
+            {
+                return View("Register");
+            }
+            else
+            {
+                return View("Login");
+            }
+
+
+        }
+
     }
 }
