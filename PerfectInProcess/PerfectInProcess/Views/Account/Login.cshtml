@@ -1,11 +1,9 @@
 ﻿@model PerfectInProcess.Models.ViewModel.LoginViewModel
 
 @{
-    ViewBag.Title = "Login";
+    ViewBag.Title = "Index";
     Layout = "~/Views/Layouts/_DefaultLayout.cshtml";
 }
-
-<h2>Login</h2>
 
 <!DOCTYPE html>
 
@@ -16,20 +14,21 @@
 </head>
 <body>
     <div>
-        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        @using (Html.BeginForm("LoginSubmit", "Account", FormMethod.Post))
         {
             <fieldset class="form-horizontal align-center" style="height:400px;width:600px">
                 <legend class="col-lg-10 col-lg-offset-6">Login</legend>
                 <div class="form-group">
-                    <label for="Username" id="UserName" class="col-lg-2">User name</label>
+                    <label for="Username" id="login" class="col-lg-2">User name</label>
                     <div class="col-lg-10">
-                        @Html.TextBoxFor(Model => Model.UserName, new { @class = "form-control registertextboxes", id = "UserName", placeholder = "Username or Email"})
+                        @Html.TextBoxFor(Model => Model.UserName, new { @class = "form-control registertextboxes", id = "UserName", placeholder = "Username or Email",Name = "UserName", value = "" })
+                       
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="PAssword" id="register" class="col-lg-2 control-label">Password</label>
+                    <label for="Password" id="login" class="col-lg-2 control-label">Password</label>
                     <div class="col-lg-10">
-                        @Html.PasswordFor(Model => Model.Password, new { @class = "form-control registertextboxes", id = "Password", placeholder = "Password"  })
+                        @Html.PasswordFor(Model => Model.Password, new { @class = "form-control registertextboxes", id = "Password", placeholder = "Password", Name = "Password" })
                     </div>
                 </div>               
                 <div class="form-group">
