@@ -12,6 +12,7 @@ namespace PerfectInProcess.Models.DataModel
     {
         int RoleID;
         String RoleName;
+        int RiskLevel;
         public List<PermissionsDataModel> Permissions { get; private set; } = new List<PermissionsDataModel>();
         public List<String> PermissionGroups { get; private set; } = new List<string>();
 
@@ -34,11 +35,11 @@ namespace PerfectInProcess.Models.DataModel
                         
                         while (reader.Read())
                         {
-                            Permissions.Add(new PermissionsDataModel((int)reader[2], (string)reader[3], (string)reader[4], (string)reader[5], (string)reader[6]));
+                            Permissions.Add(new PermissionsDataModel((int)reader[3], (string)reader[4], (string)reader[5], (string)reader[6], (string)reader[7], (int)reader[8]));
 
-                            if(!PermissionGroups.Contains((string)reader[4]))
+                            if(!PermissionGroups.Contains((string)reader[5]))
                             {
-                                PermissionGroups.Add((string)reader[4]);
+                                PermissionGroups.Add((string)reader[5]);
                             }
 
                             if(first)
@@ -46,35 +47,16 @@ namespace PerfectInProcess.Models.DataModel
                                 first = false;
                                 RoleID = (int)reader[0];
                                 RoleName = (string)reader[1];
+                                RiskLevel = (int)reader[2];
                             }
                         }
 
                     }
                 }
-
-                
-
-
             }
             catch (SqlException ex)
             {
                 base.SetError(ex.Message);
-            }
-        }
-
-        public RoleDataModel()
-        {
-            //static data
-            Permissions.Add(new PermissionsDataModel(1, "Register Account", "Account", "Account", "Register"));
-            Permissions.Add(new PermissionsDataModel(2, "Login", "Account", "Account", "Login"));
-            Permissions.Add(new PermissionsDataModel(3, "Home", "Home", "Home", "Home"));
-            Permissions.Add(new PermissionsDataModel(4, "Contact Us", "Home", "Home", "Contact Us"));
-            Permissions.Add(new PermissionsDataModel(5, "About Us", "Home", "Home", "About Us"));
-
-            foreach(PermissionsDataModel p in Permissions)
-            {
-                if (!PermissionGroups.Contains(p.PermissionGroupName))
-                    PermissionGroups.Add(p.PermissionGroupName);
             }
         }
 
@@ -114,6 +96,38 @@ namespace PerfectInProcess.Models.DataModel
             return false;
         }
 
-        
+
+        public static List<RoleDataModel> GetAllRoles()
+        {
+            List<RoleDataModel> Roles = new List<RoleDataModel>();
+            List<int> RoleIDs = new List<int>();
+            try
+            {
+                using (SqlConnection SqlConnection = new SqlConnection(Convert.ToString(ConfigurationManager.ConnectionStrings["DefaultConnection"])))
+                {
+                    SqlConnection.Open();
+                    using (SqlCommand command = new SqlCommand("spRolesSelectAll", SqlConnection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            RoleIDs.Add((int)reader[0]);
+                        }
+                    }
+
+                    foreach(int roleID in RoleIDs)
+                    {
+                        Roles.Add(new RoleDataModel(roleID));
+                    }
+                }
+                return Roles;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }
