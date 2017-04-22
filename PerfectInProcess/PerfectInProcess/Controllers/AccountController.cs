@@ -64,9 +64,9 @@ namespace PerfectInProcess.Controllers
             //verifies if tokan is valid if not valid resends verification link
             RegisteredAccount.VerifyEmailTokenIDTokenPassword(tokenID, tokenPassword);
 
-            if (RegisteredAccount.listOfErrors.Count != 0)
+            if (RegisteredAccount.GetError().Count != 0)
             {
-                foreach (string error in RegisteredAccount.listOfErrors)
+                foreach (string error in RegisteredAccount.GetError())
                 {
                     ModelState.AddModelError("", error);
                 }
@@ -85,9 +85,9 @@ namespace PerfectInProcess.Controllers
 
             RegisteredAccount.GenerateTokeAndSendEmailVerification();
 
-            if (RegisteredAccount.listOfErrors.Count != 0)
+            if (RegisteredAccount.GetError().Count != 0)
             {
-                foreach (string error in RegisteredAccount.listOfErrors)
+                foreach (string error in RegisteredAccount.GetError())
                 {
                     ModelState.AddModelError("", error);
                 }

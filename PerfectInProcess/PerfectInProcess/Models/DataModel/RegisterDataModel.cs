@@ -14,8 +14,7 @@ using System.Web;
 namespace PerfectInProcess.Models.DataModel
 {
     public class RegisterDataModel : BaseDataModel
-    {
-        public ArrayList listOfErrors = new ArrayList();
+    {      
 
         public int AccountId { get; set; }
         private string UserName { get; set; }
@@ -58,7 +57,10 @@ namespace PerfectInProcess.Models.DataModel
         /// <param name="email"></param>       
         /// <param name="accountID"></param>
         public RegisterDataModel(string email, int accountID)
-        {            
+        {
+            //Clears error list
+            ClearError();
+
             Email = email;           
             AccountId = accountID;       
         }
