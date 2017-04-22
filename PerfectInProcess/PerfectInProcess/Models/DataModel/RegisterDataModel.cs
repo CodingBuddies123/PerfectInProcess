@@ -138,8 +138,9 @@ namespace PerfectInProcess.Models.DataModel
                     command.Parameters.Add("@TokenId", SqlDbType.UniqueIdentifier).Direction = ParameterDirection.Output;
                     command.Parameters.Add("@TokenPassword", SqlDbType.VarChar).Value = TokenPassword;
                     command.Parameters.Add("@AccountID", SqlDbType.Int).Value = AccountId;
-                    //command.Parameters.Add("@Error", SqlDbType.VarChar).Direction = ParameterDirection.Output;
-
+                    //need to test this out!!!!!!
+                    //command.Parameters.Add("@Error", SqlDbType.VarChar,-1).Direction = ParameterDirection.Output;
+                    
                     SqlConnection.Open();
                     command.ExecuteNonQuery();
 
@@ -150,7 +151,7 @@ namespace PerfectInProcess.Models.DataModel
                     //if ((string)command.Parameters["@Error"].Value == "")
                     //{
                     //    string Error = (string)command.Parameters["@Error"].Value;
-                    //    listOfErrors.Add(Error);
+                    //    SetError(Error);
                     //}
 
 
