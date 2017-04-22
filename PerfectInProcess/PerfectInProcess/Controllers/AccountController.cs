@@ -24,10 +24,10 @@ namespace PerfectInProcess.Controllers
                 RegisterDataModel RegisterAccount = new RegisterDataModel(viewModel.UserName, viewModel.Email, viewModel.FirstName, viewModel.LastName,
                     viewModel.Password);
 
-                if (RegisterAccount.listOfErrors.Count != 0)
+                if (RegisterAccount.GetError().Count != 0)
                 {
                     //if errors get all errors from list tro display to page 
-                    foreach (string error in RegisterAccount.listOfErrors)
+                    foreach (string error in (RegisterAccount.GetError()))
                     {
                         ModelState.AddModelError("", error);
                     }
