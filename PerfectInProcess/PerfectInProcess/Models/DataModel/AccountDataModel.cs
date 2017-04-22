@@ -30,6 +30,17 @@ namespace PerfectInProcess.Models.DataModel
         {
             Role = new RoleDataModel(1);
         } 
+
+        public AccountDataModel (int AccountId, string UserName, string Email, string FirstName, string LastName)
+        {
+            this.AccountId = AccountId;
+            this.UserName = UserName;
+            this.Email = Email;
+            this.FirstName = FirstName;
+            this.LastName = LastName;
+
+            Role = new RoleDataModel(1);
+        }
        
     }
    
