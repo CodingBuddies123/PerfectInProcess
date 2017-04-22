@@ -13,9 +13,8 @@ using System.Web;
 
 namespace PerfectInProcess.Models.DataModel
 {
-    public class RegisterDataModel
-    {
-        public ArrayList listOfErrors = new ArrayList();
+    public class RegisterDataModel : BaseDataModel
+    {      
 
         public int AccountId { get; set; }
         private string UserName { get; set; }
@@ -41,6 +40,9 @@ namespace PerfectInProcess.Models.DataModel
         /// <param name="password"></param>
         public RegisterDataModel(string userName, string email, string firstName,string lastName,string password)
         {
+            //Clears error list
+            ClearError();
+
             UserName = userName;
             Email = email;
             FirstName = firstName;
@@ -55,7 +57,10 @@ namespace PerfectInProcess.Models.DataModel
         /// <param name="email"></param>       
         /// <param name="accountID"></param>
         public RegisterDataModel(string email, int accountID)
-        {            
+        {
+            //Clears error list
+            ClearError();
+
             Email = email;           
             AccountId = accountID;       
         }
@@ -74,7 +79,7 @@ namespace PerfectInProcess.Models.DataModel
             AddAccountToDB();
 
             //Send validation Email account was registered and duplicate username and or email was not used
-            if (listOfErrors.Count == 0)
+            if (GetError().Count == 0)
             {
                 //generates token password stores to db then sends verification email
                 GenerateTokeAndSendEmailVerification();
@@ -114,7 +119,7 @@ namespace PerfectInProcess.Models.DataModel
             }
             catch (SqlException ex)
             {
-                listOfErrors.Add(ex.Message);               
+                SetError(ex.Message);                          
             }
         }
 
@@ -155,7 +160,7 @@ namespace PerfectInProcess.Models.DataModel
             }
             catch (SqlException ex)
             {
-                listOfErrors.Add(ex.Message);                
+                SetError(ex.Message);
             }
         }
 
@@ -189,12 +194,12 @@ namespace PerfectInProcess.Models.DataModel
             }
             catch (SqlException ex)
             {
-                listOfErrors.Add(ex.Message);
+                SetError(ex.Message);
             }
 
 
             //if error in proc than dont verify the tokens in the db
-            if (listOfErrors.Count == 0)
+            if (GetError().Count == 0)
             {
                 //code which gets the token password and checks if its expired
                 byte[] data = Convert.FromBase64String(tokenPassword);
@@ -234,7 +239,7 @@ namespace PerfectInProcess.Models.DataModel
             }
             catch (SqlException ex)
             {
-                listOfErrors.Add(ex.Message);
+                SetError(ex.Message);
             }
         }
         public void GenerateTokeAndSendEmailVerification()
@@ -321,7 +326,7 @@ namespace PerfectInProcess.Models.DataModel
             }
             catch (Exception ex)
             {
-                listOfErrors.Add(ex.Message);
+                SetError(ex.Message);
             }
         }
 

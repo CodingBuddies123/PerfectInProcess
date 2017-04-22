@@ -27,10 +27,10 @@ namespace PerfectInProcess.Controllers
                 RegisterDataModel RegisterAccount = new RegisterDataModel(viewModel.UserName, viewModel.Email, viewModel.FirstName, viewModel.LastName,
                     viewModel.Password);
 
-                if (RegisterAccount.listOfErrors.Count != 0)
+                if (RegisterAccount.GetError().Count != 0)
                 {
                     //if errors get all errors from list tro display to page 
-                    foreach (string error in RegisterAccount.listOfErrors)
+                    foreach (string error in (RegisterAccount.GetError()))
                     {
                         ModelState.AddModelError("", error);
                     }
@@ -64,9 +64,9 @@ namespace PerfectInProcess.Controllers
             //verifies if tokan is valid if not valid resends verification link
             RegisteredAccount.VerifyEmailTokenIDTokenPassword(tokenID, tokenPassword);
 
-            if (RegisteredAccount.listOfErrors.Count != 0)
+            if (RegisteredAccount.GetError().Count != 0)
             {
-                foreach (string error in RegisteredAccount.listOfErrors)
+                foreach (string error in RegisteredAccount.GetError())
                 {
                     ModelState.AddModelError("", error);
                 }
@@ -85,9 +85,9 @@ namespace PerfectInProcess.Controllers
 
             RegisteredAccount.GenerateTokeAndSendEmailVerification();
 
-            if (RegisteredAccount.listOfErrors.Count != 0)
+            if (RegisteredAccount.GetError().Count != 0)
             {
-                foreach (string error in RegisteredAccount.listOfErrors)
+                foreach (string error in RegisteredAccount.GetError())
                 {
                     ModelState.AddModelError("", error);
                 }
