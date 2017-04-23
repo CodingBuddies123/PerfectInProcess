@@ -18,20 +18,28 @@ namespace PerfectInProcess.Controllers
 
         public ActionResult EditRolesAndPermissions(EditRolesAndPermissionsViewModel view)
         {
-            view.InitialRoles = RoleDataModel.GetAllRoles();
-            view.SelectedRole = view.InitialRoles.First();
-            foreach (PermissionsDataModel p in PermissionsDataModel.GetAllPermissions())
+            if (TempData["PreviousView"] != null)
+                view = (EditRolesAndPermissionsViewModel)TempData["PreviousView"];
+            else
             {
-                if (view.SelectedRole.Permissions.Find(x => x.PermissionID == p.PermissionID) != null)
+                view.InitialRoles = RoleDataModel.GetAllRoles();
+                view.SelectedRole = view.InitialRoles.First();
+
+                foreach (PermissionsDataModel p in PermissionsDataModel.GetAllPermissions())
                 {
-                    view.InitialAssignedPermissions.Add(p);
+                    if (view.SelectedRole.Permissions.Find(x => x.PermissionID == p.PermissionID) != null)
+                    {
+                        view.InitialAssignedPermissions.Add(p);
+                    }
+                    else
+                    {
+                        view.InitialUnassignedPermissions.Add(p);
+                    }
                 }
-                else
-                {
-                    view.InitialUnassignedPermissions.Add(p);
-                }
+
+                view.TableRowMax = Math.Max(view.InitialRoles.Count, Math.Max(view.InitialAssignedPermissions.Count, view.InitialUnassignedPermissions.Count));
             }
-            view.TableRowMax = Math.Max(view.InitialRoles.Count, Math.Max(view.InitialAssignedPermissions.Count, view.InitialUnassignedPermissions.Count));
+            
             TempData["PreviousView"] = view;
             return View("EditRolesAndPermissions", view);
         }
@@ -59,7 +67,7 @@ namespace PerfectInProcess.Controllers
             view.TableRowMax = Math.Max(view.InitialRoles.Count, Math.Max(view.InitialAssignedPermissions.Count, view.InitialUnassignedPermissions.Count));
             TempData["PreviousView"] = view;
 
-            return View("EditRolesAndPermissions", view);
+            return RedirectToAction("EditRolesAndPermissions");
         }
 
         public ActionResult EditRolesAndPermissionsSubmitChanges(EditRolesAndPermissionsViewModel view)
@@ -91,7 +99,7 @@ namespace PerfectInProcess.Controllers
                 view.SelectedRole.UnassignPermissions(ToRemove);
 
 
-            return View("EditRolesAndPermissions", view);
+            return RedirectToAction("EditRolesAndPermissions");
         }
 
         public ActionResult EditRolesAndPermissionsUnassignedPermissionsRowSelection(EditRolesAndPermissionsViewModel view)
@@ -101,7 +109,7 @@ namespace PerfectInProcess.Controllers
             view.InitialAssignedPermissions.Add(view.InitialUnassignedPermissions.Find(x => x.PermissionID == AssignedPermission));
             view.InitialUnassignedPermissions.Remove(view.InitialUnassignedPermissions.Find(x => x.PermissionID == AssignedPermission));
             TempData["PreviousView"] = view;
-            return View("EditRolesAndPermissions", view);
+            return RedirectToAction("EditRolesAndPermissions");
         }
 
         public ActionResult EditRolesAndPermissionsAssignedPermissionsRowSelection(EditRolesAndPermissionsViewModel view)
@@ -111,7 +119,7 @@ namespace PerfectInProcess.Controllers
             view.InitialUnassignedPermissions.Add(view.InitialAssignedPermissions.Find(x => x.PermissionID == UnasignedPermission));
             view.InitialAssignedPermissions.Remove(view.InitialAssignedPermissions.Find(x => x.PermissionID == UnasignedPermission));
             TempData["PreviousView"] = view;
-            return View("EditRolesAndPermissions", view);
+            return RedirectToAction("EditRolesAndPermissions");
         }
     }
 }
