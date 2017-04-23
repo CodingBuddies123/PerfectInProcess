@@ -1,0 +1,49 @@
+﻿@model PerfectInProcess.Models.ViewModel.EditRolesAndPermissionsViewModel
+@{
+    ViewBag.Title = "EditRolesAndPermissions";
+    Layout = "~/Views/Layouts/_DefaultLayout.cshtml";
+}
+<script>
+    function tableclick(val) {
+        $('#HiddenValue').text($(val).find('td:first').text());
+        $("#EditRolesAndPermissionsRoleRowSelection").submit('1');
+    }
+</script>
+
+
+
+<h2>EditRolesAndSelections</h2>
+
+@using (Html.BeginForm("EditRolesAndPermissionsRoleRowSelection", "Admin", FormMethod.Post, new { id = "EditRolesAndPermissionsRoleRowSelection" }))
+{
+    <div class="col-md-4">
+        <table class="table table-bordered table-hover table-striped">
+            <tr >
+                <th>Role ID</th>
+                <th>Role Name</th>
+                <th>Risk Level</th>
+            </tr>
+            @foreach (PerfectInProcess.Models.DataModel.RoleDataModel role in Model.InitialRoles)
+            {
+                <tr onclick="tableclick(this)">
+                    <td>@role.RoleID</td>
+                    <td>@role.RoleName</td>
+                    <td>@role.RiskLevel</td>
+                </tr>
+            }
+
+            @for(int i = 0; i < Model.TableRowMax - Model.InitialRoles.Count; i++)
+            {
+                <tr>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                    <td>&nbsp;</td>
+                </tr>
+            }
+        </table>
+    </div>
+
+    @Html.LabelFor(m => m.SelectedRow, new { id = "HiddenValue" })
+
+}
+

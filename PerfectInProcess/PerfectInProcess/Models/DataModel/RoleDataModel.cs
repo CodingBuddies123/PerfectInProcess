@@ -10,9 +10,9 @@ namespace PerfectInProcess.Models.DataModel
 {
     public class RoleDataModel : BaseDataModel
     {
-        int RoleID;
-        String RoleName;
-        int RiskLevel;
+        public int RoleID { get; private set; }
+        public String RoleName { get; private set; }
+        public int RiskLevel { get; private set; }
         public List<PermissionsDataModel> Permissions { get; private set; } = new List<PermissionsDataModel>();
         public List<String> PermissionGroups { get; private set; } = new List<string>();
 
