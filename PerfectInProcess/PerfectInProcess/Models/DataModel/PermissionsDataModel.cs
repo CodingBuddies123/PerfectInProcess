@@ -75,5 +75,43 @@ namespace PerfectInProcess.Models.DataModel
                 return null;
             }
         }
+
+        public static Boolean AssignPermissions(RoleDataModel role, List<PermissionsDataModel> toAdd)
+        {
+            string permissionsToAdd = "";
+
+            foreach(PermissionsDataModel p in toAdd)
+            {
+                permissionsToAdd += p.PermissionID + ',';
+            }
+
+            try
+            {
+                SqlConnection SqlConnection = new SqlConnection(Convert.ToString(ConfigurationManager.ConnectionStrings["DefaultConnection"]));
+
+                using (SqlCommand command = new SqlCommand("spRolesAssignPermission", SqlConnection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@RoleID", SqlDbType.Int).Value = role.RoleID;
+                    command.Parameters.Add("@PermissionIDs", SqlDbType.VarChar, -1).Value = permissionsToAdd;
+                    command.Parameters.Add("@Error", SqlDbType.VarChar, -1).Direction = ParameterDirection.Output;
+
+                    SqlConnection.Open();
+                    command.ExecuteNonQuery();
+
+                    return true;
+                }
+            }
+            catch (SqlException ex)
+            {
+                
+            }
+            return false;
+        }
+
+        public static Boolean UnassignPermissions()
+        {
+            return false;
+        }
     }
 }

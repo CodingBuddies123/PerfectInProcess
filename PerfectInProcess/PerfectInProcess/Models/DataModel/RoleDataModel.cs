@@ -129,5 +129,70 @@ namespace PerfectInProcess.Models.DataModel
                 return null;
             }
         }
+
+        public Boolean AssignPermissions(List<PermissionsDataModel> toAdd)
+        {
+            string permissionsToAdd = "";
+
+            foreach (PermissionsDataModel p in toAdd)
+            {
+                permissionsToAdd += p.PermissionID + ",";
+            }
+
+            try
+            {
+                SqlConnection SqlConnection = new SqlConnection(Convert.ToString(ConfigurationManager.ConnectionStrings["DefaultConnection"]));
+
+                using (SqlCommand command = new SqlCommand("spRolesAssignPermission", SqlConnection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@RoleID", SqlDbType.Int).Value = RoleID;
+                    command.Parameters.Add("@PermissionIDs", SqlDbType.VarChar, -1).Value = permissionsToAdd;
+                    command.Parameters.Add("@Error", SqlDbType.VarChar, -1).Direction = ParameterDirection.Output;
+
+                    SqlConnection.Open();
+                    command.ExecuteNonQuery();
+
+                    return true;
+                }
+            }
+            catch (SqlException ex)
+            {
+                base.SetError(ex.Message);
+            }
+            return false;
+        }
+        public Boolean UnassignPermissions(List<PermissionsDataModel> toRemove)
+        {
+            string permissionsToRemove = "";
+
+            foreach (PermissionsDataModel p in toRemove)
+            {
+                permissionsToRemove += p.PermissionID + ",";
+            }
+
+            try
+            {
+                SqlConnection SqlConnection = new SqlConnection(Convert.ToString(ConfigurationManager.ConnectionStrings["DefaultConnection"]));
+
+                using (SqlCommand command = new SqlCommand("spRolesRemovePermissions", SqlConnection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@RoleID", SqlDbType.Int).Value = RoleID;
+                    command.Parameters.Add("@PermissionIDs", SqlDbType.VarChar, -1).Value = permissionsToRemove;
+                    command.Parameters.Add("@Error", SqlDbType.VarChar, -1).Direction = ParameterDirection.Output;
+
+                    SqlConnection.Open();
+                    command.ExecuteNonQuery();
+
+                    return true;
+                }
+            }
+            catch (SqlException ex)
+            {
+                base.SetError(ex.Message);
+            }
+            return false;
+        }
     }
 }
