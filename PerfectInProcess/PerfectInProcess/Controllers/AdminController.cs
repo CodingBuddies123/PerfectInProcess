@@ -16,12 +16,8 @@ namespace PerfectInProcess.Controllers
             return View();
         }
 
-        public ActionResult EditRolesAndPermissions(EditRolesAndPermissionsViewModel view)
+        public ActionResult AssignPermissions_Load(EditRolesAndPermissionsViewModel view)
         {
-            if (TempData["PreviousView"] != null)
-                view = (EditRolesAndPermissionsViewModel)TempData["PreviousView"];
-            else
-            {
                 view.InitialRoles = RoleDataModel.GetAllRoles();
                 view.SelectedRole = view.InitialRoles.First();
 
@@ -38,13 +34,53 @@ namespace PerfectInProcess.Controllers
                 }
 
                 view.TableRowMax = Math.Max(view.InitialRoles.Count, Math.Max(view.InitialAssignedPermissions.Count, view.InitialUnassignedPermissions.Count));
-            }
-            
+
             TempData["PreviousView"] = view;
-            return View("EditRolesAndPermissions", view);
+            return RedirectToAction("AssignPermissions");
         }
 
-        public ActionResult EditRolesAndPermissionsRoleRowSelection(EditRolesAndPermissionsViewModel view)
+        public ActionResult AssignPermissions_Reload(EditRolesAndPermissionsViewModel view)
+        {
+            if (TempData["PreviousView"] != null)
+                view = (EditRolesAndPermissionsViewModel)TempData["PreviousView"];
+
+            view.InitialRoles = RoleDataModel.GetAllRoles();
+            view.SelectedRole = view.InitialRoles.Find(x => x.RoleID == view.SelectedRole.RoleID);
+            view.InitialAssignedPermissions.Clear();
+            view.InitialUnassignedPermissions.Clear();
+
+
+            foreach (PermissionsDataModel p in PermissionsDataModel.GetAllPermissions())
+            {
+                if (view.SelectedRole.Permissions.Find(x => x.PermissionID == p.PermissionID) != null)
+                {
+                    view.InitialAssignedPermissions.Add(p);
+                }
+                else
+                {
+                    view.InitialUnassignedPermissions.Add(p);
+                }
+            }
+
+            view.TableRowMax = Math.Max(view.InitialRoles.Count, Math.Max(view.InitialAssignedPermissions.Count, view.InitialUnassignedPermissions.Count));
+
+            TempData ["PreviousView"] = view;
+            return RedirectToAction("AssignPermissions");
+        }
+
+        public ActionResult AssignPermissions(EditRolesAndPermissionsViewModel view)
+        {
+            if (TempData["PreviousView"] != null)
+                view = (EditRolesAndPermissionsViewModel)TempData["PreviousView"];
+            else
+                return RedirectToAction("AssignPermissions_Load");
+
+            TempData["PreviousView"] = view;
+
+            return View("AssignPermissions", view);
+        }
+
+        public ActionResult AssignPermissions_RoleRowSelection(EditRolesAndPermissionsViewModel view)
         {
             view = (EditRolesAndPermissionsViewModel)TempData["PreviousView"];
             int roleID = int.Parse(Request.QueryString["roleID"]);
@@ -65,12 +101,13 @@ namespace PerfectInProcess.Controllers
             }
 
             view.TableRowMax = Math.Max(view.InitialRoles.Count, Math.Max(view.InitialAssignedPermissions.Count, view.InitialUnassignedPermissions.Count));
-            TempData["PreviousView"] = view;
 
-            return RedirectToAction("EditRolesAndPermissions");
+            TempData["PreviousView"] = view;
+            TempData["LoadViewFromTemp"] = true;
+            return RedirectToAction("AssignPermissions");
         }
 
-        public ActionResult EditRolesAndPermissionsSubmitChanges(EditRolesAndPermissionsViewModel view)
+        public ActionResult AssignPermissions_SubmitChanges(EditRolesAndPermissionsViewModel view)
         {
             view = (EditRolesAndPermissionsViewModel)TempData["PreviousView"];
             List<PermissionsDataModel> ToAdd = new List<PermissionsDataModel>();
@@ -98,28 +135,28 @@ namespace PerfectInProcess.Controllers
             if (ToRemove.Count > 0)
                 view.SelectedRole.UnassignPermissions(ToRemove);
 
-
-            return RedirectToAction("EditRolesAndPermissions");
+            TempData["PreviousView"] = view;
+            return RedirectToAction("AssignPermissions_Reload");
         }
 
-        public ActionResult EditRolesAndPermissionsUnassignedPermissionsRowSelection(EditRolesAndPermissionsViewModel view)
+        public ActionResult AssignPermissions_UnassignedPermissionsRowSelection(EditRolesAndPermissionsViewModel view)
         {
             view = (EditRolesAndPermissionsViewModel)TempData["PreviousView"];
             int AssignedPermission = int.Parse(Request.QueryString["AssignedPermissionsID"]);
             view.InitialAssignedPermissions.Add(view.InitialUnassignedPermissions.Find(x => x.PermissionID == AssignedPermission));
             view.InitialUnassignedPermissions.Remove(view.InitialUnassignedPermissions.Find(x => x.PermissionID == AssignedPermission));
             TempData["PreviousView"] = view;
-            return RedirectToAction("EditRolesAndPermissions");
+            return RedirectToAction("AssignPermissions");
         }
 
-        public ActionResult EditRolesAndPermissionsAssignedPermissionsRowSelection(EditRolesAndPermissionsViewModel view)
+        public ActionResult AssignPermissions_AssignedPermissionsRowSelection(EditRolesAndPermissionsViewModel view)
         {
             view = (EditRolesAndPermissionsViewModel)TempData["PreviousView"];
             int UnasignedPermission = int.Parse(Request.QueryString["UnassignedPermissionsID"]);
             view.InitialUnassignedPermissions.Add(view.InitialAssignedPermissions.Find(x => x.PermissionID == UnasignedPermission));
             view.InitialAssignedPermissions.Remove(view.InitialAssignedPermissions.Find(x => x.PermissionID == UnasignedPermission));
             TempData["PreviousView"] = view;
-            return RedirectToAction("EditRolesAndPermissions");
+            return RedirectToAction("AssignPermissions");
         }
     }
 }

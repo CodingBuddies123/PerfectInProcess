@@ -5,15 +5,15 @@
 }
 <script>
     function roleTableClick(val) {
-        window.location.href = "/admin/EditRolesAndPermissionsRoleRowSelection?roleID=" + $(val).find('td:first').text();
+        window.location.href = "/admin/AssignPermissions_RoleRowSelection?roleID=" + $(val).find('td:first').text();
     }
 
     function unassignedTableClick(val) {
-        window.location.href = "/admin/EditRolesAndPermissionsUnassignedPermissionsRowSelection?AssignedPermissionsID=" + $(val).find('td:first').text();
+        window.location.href = "/admin/AssignPermissions_UnassignedPermissionsRowSelection?AssignedPermissionsID=" + $(val).find('td:first').text();
     }
 
     function assignedTableClick(val) {
-        window.location.href = "/admin/EditRolesAndPermissionsAssignedPermissionsRowSelection?UnassignedPermissionsID=" + $(val).find('td:first').text();
+        window.location.href = "/admin/AssignPermissions_AssignedPermissionsRowSelection?UnassignedPermissionsID=" + $(val).find('td:first').text();
     }
 
     $(document).ready(function () {
@@ -44,12 +44,12 @@
 
 <h2>Assign Permissions</h2>
 
-@using (Html.BeginForm("EditRolesAndPermissionsSubmitChanges", "Admin", FormMethod.Post, new { id = "EditRolesAndPermissionsRoleRowSelection" }))
+@using (Html.BeginForm("AssignPermissions_SubmitChanges", "Admin", FormMethod.Post, new { id = "EditRolesAndPermissionsRoleRowSelection" }))
 {
     <div class="col-md-2" style="margin-bottom:50px;">
         <table class="table table-bordered table-hover table-striped" style="margin-bottom:0px">
             <tr class="tableHeaderHeight">
-                <th>Roles</th>
+                <th>Roles <br />(Currently Selected: @Model.SelectedRole.RoleName)</th>
             </tr>
         </table>
         <div class="tableScroll">

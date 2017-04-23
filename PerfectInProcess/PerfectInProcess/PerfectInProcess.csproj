@@ -304,7 +304,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\VerifyEmail.cshtml" />
     <Content Include="Views\Account\TokenExpired.cshtml" />
-    <Content Include="Views\Admin\EditRolesAndPermissions.cshtml" />
+    <Content Include="Views\Admin\AssignPermissions.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
