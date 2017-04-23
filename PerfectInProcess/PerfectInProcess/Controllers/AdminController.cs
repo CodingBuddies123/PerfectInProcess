@@ -16,6 +16,7 @@ namespace PerfectInProcess.Controllers
             return View();
         }
 
+        #region AssignPermissions
         public ActionResult AssignPermissions_Load(EditRolesAndPermissionsViewModel view)
         {
                 view.InitialRoles = RoleDataModel.GetAllRoles();
@@ -158,5 +159,7 @@ namespace PerfectInProcess.Controllers
             TempData["PreviousView"] = view;
             return RedirectToAction("AssignPermissions");
         }
+
+        #endregion
     }
 }
