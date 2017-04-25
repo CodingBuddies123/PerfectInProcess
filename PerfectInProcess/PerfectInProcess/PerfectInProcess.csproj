@@ -235,6 +235,7 @@
     <Compile Include="Models\DataModel\RegisterDataModel.cs" />
     <Compile Include="Models\DataModel\RoleDataModel.cs" />
     <Compile Include="Models\ViewModel\LoginViewModel.cs" />
+    <Compile Include="Models\ViewModel\ProfileSetUpViewModel.cs" />
     <Compile Include="Models\ViewModel\RegisterViewModel.cs" />
     <Compile Include="Models\ViewModel\BaseViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -302,6 +303,7 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\VerifyEmail.cshtml" />
     <Content Include="Views\Account\TokenExpired.cshtml" />
+    <Content Include="Views\Account\ProdileSetup.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
