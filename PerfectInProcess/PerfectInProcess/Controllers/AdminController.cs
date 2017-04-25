@@ -64,7 +64,7 @@ namespace PerfectInProcess.Controllers
             }
 
             view.TableRowMax = Math.Max(view.InitialRoles.Count, Math.Max(view.InitialAssignedPermissions.Count, view.InitialUnassignedPermissions.Count));
-
+            view.ChangesMade = false;
             TempData ["PreviousView"] = view;
             return RedirectToAction("AssignPermissions");
         }
@@ -103,8 +103,8 @@ namespace PerfectInProcess.Controllers
 
             view.TableRowMax = Math.Max(view.InitialRoles.Count, Math.Max(view.InitialAssignedPermissions.Count, view.InitialUnassignedPermissions.Count));
 
+            view.ChangesMade = false;
             TempData["PreviousView"] = view;
-            TempData["LoadViewFromTemp"] = true;
             return RedirectToAction("AssignPermissions");
         }
 
@@ -136,6 +136,7 @@ namespace PerfectInProcess.Controllers
             if (ToRemove.Count > 0)
                 view.SelectedRole.UnassignPermissions(ToRemove);
 
+            view.ChangesMade = false;
             TempData["PreviousView"] = view;
             return RedirectToAction("AssignPermissions_Reload");
         }
@@ -147,6 +148,7 @@ namespace PerfectInProcess.Controllers
             view.InitialAssignedPermissions.Add(view.InitialUnassignedPermissions.Find(x => x.PermissionID == AssignedPermission));
             view.InitialUnassignedPermissions.Remove(view.InitialUnassignedPermissions.Find(x => x.PermissionID == AssignedPermission));
             TempData["PreviousView"] = view;
+            view.ChangesMade = true;
             return RedirectToAction("AssignPermissions");
         }
 
@@ -157,6 +159,7 @@ namespace PerfectInProcess.Controllers
             view.InitialUnassignedPermissions.Add(view.InitialAssignedPermissions.Find(x => x.PermissionID == UnasignedPermission));
             view.InitialAssignedPermissions.Remove(view.InitialAssignedPermissions.Find(x => x.PermissionID == UnasignedPermission));
             TempData["PreviousView"] = view;
+            view.ChangesMade = true;
             return RedirectToAction("AssignPermissions");
         }
 

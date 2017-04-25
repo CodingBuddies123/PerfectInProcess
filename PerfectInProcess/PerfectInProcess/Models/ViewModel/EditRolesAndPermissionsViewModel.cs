@@ -16,5 +16,6 @@ namespace PerfectInProcess.Models.ViewModel
         public int TableRowMax = 0;
         public int TableHeight = 8;
         public int SelectedRow = -1;
+        public Boolean ChangesMade = false;
     }
 }
