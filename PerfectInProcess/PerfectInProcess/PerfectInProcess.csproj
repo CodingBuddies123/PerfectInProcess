@@ -305,11 +305,8 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\VerifyEmail.cshtml" />
     <Content Include="Views\Account\TokenExpired.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\Account\ProdileSetup.cshtml" />
-=======
     <Content Include="Views\Admin\AssignPermissions.cshtml" />
->>>>>>> refs/remotes/origin/master
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
