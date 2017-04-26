@@ -1,0 +1,227 @@
+﻿@model PerfectInProcess.Models.ViewModel.EditRolesAndPermissionsViewModel
+@{
+    ViewBag.Title = "Assign Permissions";
+    Layout = "~/Views/Layouts/_DefaultLayout.cshtml";
+}
+<script>
+    function roleTableClick(val) {
+        window.location.href = "/admin/AssignPermissions_RoleRowSelection?roleID=" + $(val).find('td:first').text();
+    }
+
+    function unassignedTableClick(val) {
+        window.location.href = "/admin/AssignPermissions_UnassignedPermissionsRowSelection?AssignedPermissionsID=" + $(val).find('td:first').text();
+    }
+
+    function assignedTableClick(val) {
+        window.location.href = "/admin/AssignPermissions_AssignedPermissionsRowSelection?UnassignedPermissionsID=" + $(val).find('td:first').text();
+    }
+
+    function cancelButtonClick() {
+        window.location.href = "/admin/AssignPermissions_Reload";
+
+    }
+
+    $(document).ready(function () {
+        var CellCount = $('#hidTableHeight').val();
+        var headerHeight = $('.tableHeaderHeight').height();
+        var rowHeight = $('.tableRowHeight').height();
+        var totalHeight = rowHeight + (CellCount * rowHeight);
+        var padding = 20;
+        $('.tableScroll').height(totalHeight + padding + 'px');
+        
+    });
+</script>
+
+<style>
+    .tableHeaderHeight{
+        height: 75px;
+    }
+
+    .tableRowHeight{
+        height:60px;
+    }
+    .tableScroll
+    {
+        overflow-y:scroll;
+    }
+</style>
+
+
+<h2>Assign Permissions</h2>
+
+@using (Html.BeginForm("AssignPermissions_SubmitChanges", "Admin", FormMethod.Post, new { id = "EditRolesAndPermissionsRoleRowSelection" }))
+{
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                   Roles: @Model.SelectedRole.RoleName
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body tableScroll">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="tableHeaderHeight">
+                                    <th hidden="hidden">Role ID</th>
+                                    <th>Role Name</th>
+                                    <th hidden="hidden">Risk Level</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (PerfectInProcess.Models.DataModel.RoleDataModel role in Model.InitialRoles)
+                                {
+                                    <tr onclick="roleTableClick(this)" class="tableRowHeight">
+                                        <td hidden="hidden">@role.RoleID</td>
+                                        <td>@role.RoleName</td>
+                                        <td hidden="hidden">@role.RiskLevel</td>
+                                    </tr>
+                                }
+                                @for (int i = 0; i < Model.TableHeight - Model.InitialRoles.Count; i++)
+                                {
+                                    <tr class="tableRowHeight">
+                                        <td hidden="hidden">&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td hidden="hidden">&nbsp;</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-6 -->
+
+        <div class="col-lg-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Currently Assigned Permissions
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body tableScroll">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="tableHeaderHeight">
+                                    <th hidden="hidden">Permission ID</th>
+                                    <th>Permission Name</th>
+                                    <th>Permission Group Name</th>
+                                    <th>Controller</th>
+                                    <th>Action</th>
+                                    <th hidden="hidden">Risk Level</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (PerfectInProcess.Models.DataModel.PermissionsDataModel permission in Model.InitialAssignedPermissions)
+                                {
+                                    <tr onclick="assignedTableClick(this)" class="tableRowHeight">
+                                        <td hidden="hidden">@permission.PermissionID</td>
+                                        <td>@permission.PermissionName</td>
+                                        <td>@permission.PermissionGroupName</td>
+                                        <td>@permission.Controller</td>
+                                        <td>@permission.Action</td>
+                                        <td hidden="hidden">@permission.RiskLevel</td>
+                                    </tr>
+                                }
+
+                                @for (int i = 0; i < Model.TableHeight - Model.InitialAssignedPermissions.Count; i++)
+                                {
+                                    <tr class="tableRowHeight">
+                                        <td hidden="hidden">&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td hidden="hidden">&nbsp;</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-6 -->
+
+        <div class="col-lg-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Currently Unassigned Permissions
+                </div>
+                <!-- /.panel-heading -->
+                <div class="panel-body tableScroll">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="tableHeaderHeight">
+                                    <th hidden="hidden">Permission ID</th>
+                                    <th>Permission Name</th>
+                                    <th>Permission Group Name</th>
+                                    <th>Controller</th>
+                                    <th>Action</th>
+                                    <th hidden="hidden">Risk Level</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (PerfectInProcess.Models.DataModel.PermissionsDataModel permission in Model.InitialUnassignedPermissions)
+                                {
+                                    <tr onclick="unassignedTableClick(this)" class="tableRowHeight">
+                                        <td hidden="hidden">@permission.PermissionID</td>
+                                        <td>@permission.PermissionName</td>
+                                        <td>@permission.PermissionGroupName</td>
+                                        <td>@permission.Controller</td>
+                                        <td>@permission.Action</td>
+                                        <td hidden="hidden">@permission.RiskLevel</td>
+                                    </tr>
+                                }
+
+                                @for (int i = 0; i < Model.TableHeight - Model.InitialUnassignedPermissions.Count; i++)
+                                {
+                                    <tr class="tableRowHeight">
+                                        <td hidden="hidden">&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td>&nbsp;</td>
+                                        <td hidden="hidden">&nbsp;</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-6 -->
+    </div>
+
+    <div class="col-lg-12" style="margin:10px; margin-bottom:50px">
+        <div class="col-lg-1">
+            @if (Model.ChangesMade)
+            {
+                <input type="submit" class="btn btn-primary" value="Save Changes" />
+            }
+            else
+            {
+                <input type="submit" class="btn btn-primary" value="Up to Date" disabled="disabled" />
+            }
+        </div>
+        <div class="col-lg-1">
+            <input type="button" class="btn btn-primary" value="Cancel" onclick="cancelButtonClick()" />
+        </div>
+    </div>
+
+
+
+        @Html.HiddenFor(m => m.TableHeight, new { id = "hidTableHeight" });
+}
