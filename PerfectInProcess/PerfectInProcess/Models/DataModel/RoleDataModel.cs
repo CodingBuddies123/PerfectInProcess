@@ -10,8 +10,9 @@ namespace PerfectInProcess.Models.DataModel
 {
     public class RoleDataModel : BaseDataModel
     {
-        int RoleID;
-        String RoleName;
+        public int RoleID { get; private set; }
+        public String RoleName { get; private set; }
+        public int RiskLevel { get; private set; }
         public List<PermissionsDataModel> Permissions { get; private set; } = new List<PermissionsDataModel>();
         public List<String> PermissionGroups { get; private set; } = new List<string>();
 
@@ -34,11 +35,11 @@ namespace PerfectInProcess.Models.DataModel
                         
                         while (reader.Read())
                         {
-                            Permissions.Add(new PermissionsDataModel((int)reader[2], (string)reader[3], (string)reader[4], (string)reader[5], (string)reader[6]));
+                            Permissions.Add(new PermissionsDataModel((int)reader[3], (string)reader[4], (string)reader[5], (string)reader[6], (string)reader[7], (int)reader[8]));
 
-                            if(!PermissionGroups.Contains((string)reader[4]))
+                            if(!PermissionGroups.Contains((string)reader[5]))
                             {
-                                PermissionGroups.Add((string)reader[4]);
+                                PermissionGroups.Add((string)reader[5]);
                             }
 
                             if(first)
@@ -46,35 +47,16 @@ namespace PerfectInProcess.Models.DataModel
                                 first = false;
                                 RoleID = (int)reader[0];
                                 RoleName = (string)reader[1];
+                                RiskLevel = (int)reader[2];
                             }
                         }
 
                     }
                 }
-
-                
-
-
             }
             catch (SqlException ex)
             {
                 base.SetError(ex.Message);
-            }
-        }
-
-        public RoleDataModel()
-        {
-            //static data
-            Permissions.Add(new PermissionsDataModel(1, "Register Account", "Account", "Account", "Register"));
-            Permissions.Add(new PermissionsDataModel(2, "Login", "Account", "Account", "Login"));
-            Permissions.Add(new PermissionsDataModel(3, "Home", "Home", "Home", "Home"));
-            Permissions.Add(new PermissionsDataModel(4, "Contact Us", "Home", "Home", "Contact Us"));
-            Permissions.Add(new PermissionsDataModel(5, "About Us", "Home", "Home", "About Us"));
-
-            foreach(PermissionsDataModel p in Permissions)
-            {
-                if (!PermissionGroups.Contains(p.PermissionGroupName))
-                    PermissionGroups.Add(p.PermissionGroupName);
             }
         }
 
@@ -114,6 +96,103 @@ namespace PerfectInProcess.Models.DataModel
             return false;
         }
 
-        
+
+        public static List<RoleDataModel> GetAllRoles()
+        {
+            List<RoleDataModel> Roles = new List<RoleDataModel>();
+            List<int> RoleIDs = new List<int>();
+            try
+            {
+                using (SqlConnection SqlConnection = new SqlConnection(Convert.ToString(ConfigurationManager.ConnectionStrings["DefaultConnection"])))
+                {
+                    SqlConnection.Open();
+                    using (SqlCommand command = new SqlCommand("spRolesSelectAll", SqlConnection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            RoleIDs.Add((int)reader[0]);
+                        }
+                    }
+
+                    foreach(int roleID in RoleIDs)
+                    {
+                        Roles.Add(new RoleDataModel(roleID));
+                    }
+                }
+                return Roles;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public Boolean AssignPermissions(List<PermissionsDataModel> toAdd)
+        {
+            string permissionsToAdd = "";
+
+            foreach (PermissionsDataModel p in toAdd)
+            {
+                permissionsToAdd += p.PermissionID + ",";
+            }
+
+            try
+            {
+                SqlConnection SqlConnection = new SqlConnection(Convert.ToString(ConfigurationManager.ConnectionStrings["DefaultConnection"]));
+
+                using (SqlCommand command = new SqlCommand("spRolesAssignPermission", SqlConnection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@RoleID", SqlDbType.Int).Value = RoleID;
+                    command.Parameters.Add("@PermissionIDs", SqlDbType.VarChar, -1).Value = permissionsToAdd;
+                    command.Parameters.Add("@Error", SqlDbType.VarChar, -1).Direction = ParameterDirection.Output;
+
+                    SqlConnection.Open();
+                    command.ExecuteNonQuery();
+
+                    return true;
+                }
+            }
+            catch (SqlException ex)
+            {
+                base.SetError(ex.Message);
+            }
+            return false;
+        }
+        public Boolean UnassignPermissions(List<PermissionsDataModel> toRemove)
+        {
+            string permissionsToRemove = "";
+
+            foreach (PermissionsDataModel p in toRemove)
+            {
+                permissionsToRemove += p.PermissionID + ",";
+            }
+
+            try
+            {
+                SqlConnection SqlConnection = new SqlConnection(Convert.ToString(ConfigurationManager.ConnectionStrings["DefaultConnection"]));
+
+                using (SqlCommand command = new SqlCommand("spRolesRemovePermissions", SqlConnection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@RoleID", SqlDbType.Int).Value = RoleID;
+                    command.Parameters.Add("@PermissionIDs", SqlDbType.VarChar, -1).Value = permissionsToRemove;
+                    command.Parameters.Add("@Error", SqlDbType.VarChar, -1).Direction = ParameterDirection.Output;
+
+                    SqlConnection.Open();
+                    command.ExecuteNonQuery();
+
+                    return true;
+                }
+            }
+            catch (SqlException ex)
+            {
+                base.SetError(ex.Message);
+            }
+            return false;
+        }
     }
 }
