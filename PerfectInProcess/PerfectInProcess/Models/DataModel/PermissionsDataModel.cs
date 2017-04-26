@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
 
 namespace PerfectInProcess.Models.DataModel
 {
@@ -12,9 +15,10 @@ namespace PerfectInProcess.Models.DataModel
         public string PermissionGroupName { get; private set; }
         public string Controller { get; private set; }
         public string Action { get; private set; }
+        public int RiskLevel { get; private set; }
         public Boolean Hidden { get; private set; }
 
-        public PermissionsDataModel(int permissionID, string permissionName, string permissionGroupName, string controller, string action)
+        public PermissionsDataModel(int permissionID, string permissionName, string permissionGroupName, string controller, string action, int riskLevel)
         {
             PermissionID = permissionID;
             PermissionName = permissionName;
@@ -22,6 +26,7 @@ namespace PerfectInProcess.Models.DataModel
             Controller = controller;
             Action = action;
             Hidden = permissionGroupName.ToLower() == "hidden";
+            RiskLevel = riskLevel;
         }
 
         public PermissionsDataModel()
@@ -40,6 +45,71 @@ namespace PerfectInProcess.Models.DataModel
         }
 
         public Boolean DeletePermission()
+        {
+            return false;
+        }
+
+        public static List<PermissionsDataModel> GetAllPermissions()
+        {
+            List<PermissionsDataModel> Permissions = new List<PermissionsDataModel>();
+            try
+            {
+                using (SqlConnection SqlConnection = new SqlConnection(Convert.ToString(ConfigurationManager.ConnectionStrings["DefaultConnection"])))
+                {
+                    SqlConnection.Open();
+                    using (SqlCommand command = new SqlCommand("spPermissionsSelectAll", SqlConnection))
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        SqlDataReader reader = command.ExecuteReader();
+
+                        while (reader.Read())
+                        {
+                            Permissions.Add(new PermissionsDataModel((int)reader[0], (string)reader[1], (string)reader[2], (string)reader[3], (string)reader[4], (int)reader[5]));
+                        }
+                    }
+                }
+                return Permissions;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public static Boolean AssignPermissions(RoleDataModel role, List<PermissionsDataModel> toAdd)
+        {
+            string permissionsToAdd = "";
+
+            foreach(PermissionsDataModel p in toAdd)
+            {
+                permissionsToAdd += p.PermissionID + ',';
+            }
+
+            try
+            {
+                SqlConnection SqlConnection = new SqlConnection(Convert.ToString(ConfigurationManager.ConnectionStrings["DefaultConnection"]));
+
+                using (SqlCommand command = new SqlCommand("spRolesAssignPermission", SqlConnection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@RoleID", SqlDbType.Int).Value = role.RoleID;
+                    command.Parameters.Add("@PermissionIDs", SqlDbType.VarChar, -1).Value = permissionsToAdd;
+                    command.Parameters.Add("@Error", SqlDbType.VarChar, -1).Direction = ParameterDirection.Output;
+
+                    SqlConnection.Open();
+                    command.ExecuteNonQuery();
+
+                    return true;
+                }
+            }
+            catch (SqlException ex)
+            {
+                
+            }
+            return false;
+        }
+
+        public static Boolean UnassignPermissions()
         {
             return false;
         }
