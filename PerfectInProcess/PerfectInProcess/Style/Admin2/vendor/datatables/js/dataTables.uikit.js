@@ -36,7 +36,6 @@
 'use strict';
 var DataTable = $.fn.dataTable;
 
-
 /* Set the defaults for DataTables initialisation */
 $.extend( true, DataTable.defaults, {
 	dom:
@@ -46,7 +45,6 @@ $.extend( true, DataTable.defaults, {
 	renderer: 'uikit'
 } );
 
-
 /* Default class modification */
 $.extend( DataTable.ext.classes, {
 	sWrapper:      "dataTables_wrapper uk-form dt-uikit",
@@ -54,7 +52,6 @@ $.extend( DataTable.ext.classes, {
 	sLengthSelect: "uk-form-small",
 	sProcessing:   "dataTables_processing uk-panel"
 } );
-
 
 /* UIkit paging button renderer */
 DataTable.ext.renderer.pageButton.uikit = function ( settings, host, idx, buttons, page, pages ) {
@@ -149,7 +146,7 @@ DataTable.ext.renderer.pageButton.uikit = function ( settings, host, idx, button
 	};
 
 	// IE9 throws an 'unknown error' if document.activeElement is used
-	// inside an iframe or frame. 
+	// inside an iframe or frame.
 	var activeEl;
 
 	try {
@@ -170,7 +167,6 @@ DataTable.ext.renderer.pageButton.uikit = function ( settings, host, idx, button
 		$(host).find( '[data-dt-idx='+activeEl+']' ).focus();
 	}
 };
-
 
 return DataTable;
 }));

@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Verify Email";
     Layout = "~/Views/Layouts/_DefaultLayout.cshtml";
 }
@@ -15,7 +14,7 @@
     <div>
         <br />
         <br />
-        <br />    
+        <br />
 
         @*If link was clicked make i took the link out so users can not spam click the click here button to keep sending vberification emails*@
         @if (ViewBag.Sent != null)
@@ -23,7 +22,7 @@
             <p>
                 We have sent an email with a confirmation link to your email address.<br />
                 Please follow the link to continue the registration proccess. <br />
-                Please allow 5-10 minutes for this message to arrive.<br />                
+                Please allow 5-10 minutes for this message to arrive.<br />
             </p>
 
             <p><b>@Html.Raw(ViewBag.Sent)</b></p>
@@ -37,11 +36,6 @@
                 If email never arrives <a href="@Url.Action("ResendVerification","Account")">click here</a> to resend.
             </p>
         }
-
-
     </div>
 </body>
 </html>
-
-
-

@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace PerfectInProcess.Models.DataModel
 {
     public class BaseDataModel
     {
-        List<String> Errors = new List<string>();
+        private List<String> Errors = new List<string>();
 
         protected void SetError(string error)
         {
@@ -23,6 +21,5 @@ namespace PerfectInProcess.Models.DataModel
         {
             Errors.Clear();
         }
-
     }
 }

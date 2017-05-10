@@ -42,7 +42,6 @@
 'use strict';
 var DataTable = $.fn.dataTable;
 
-
 /* Set the defaults for DataTables initialisation */
 $.extend( true, DataTable.defaults, {
 	dom:
@@ -60,7 +59,6 @@ $.extend( true, DataTable.defaults, {
 	renderer: 'material'
 } );
 
-
 /* Default class modification */
 $.extend( DataTable.ext.classes, {
 	sWrapper:      "dataTables_wrapper form-inline dt-material",
@@ -68,7 +66,6 @@ $.extend( DataTable.ext.classes, {
 	sLengthSelect: "form-control input-sm",
 	sProcessing:   "dataTables_processing panel panel-default"
 } );
-
 
 /* Bootstrap paging button renderer */
 DataTable.ext.renderer.pageButton.material = function ( settings, host, idx, buttons, page, pages ) {
@@ -164,7 +161,7 @@ DataTable.ext.renderer.pageButton.material = function ( settings, host, idx, but
 	};
 
 	// IE9 throws an 'unknown error' if document.activeElement is used
-	// inside an iframe or frame. 
+	// inside an iframe or frame.
 	var activeEl;
 
 	try {
@@ -185,7 +182,6 @@ DataTable.ext.renderer.pageButton.material = function ( settings, host, idx, but
 		$(host).find( '[data-dt-idx='+activeEl+']' ).focus();
 	}
 };
-
 
 return DataTable;
 }));

@@ -1,10 +1,9 @@
-﻿using System;
+﻿using PerfectInProcess.Models.DataModel;
+using PerfectInProcess.Models.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using PerfectInProcess.Models.DataModel;
-using PerfectInProcess.Models.ViewModel;
 
 namespace PerfectInProcess.Controllers
 {
@@ -17,24 +16,25 @@ namespace PerfectInProcess.Controllers
         }
 
         #region AssignPermissions
+
         public ActionResult AssignPermissions_Load(EditRolesAndPermissionsViewModel view)
         {
-                view.InitialRoles = RoleDataModel.GetAllRoles();
-                view.SelectedRole = view.InitialRoles.First();
+            view.InitialRoles = RoleDataModel.GetAllRoles();
+            view.SelectedRole = view.InitialRoles.First();
 
-                foreach (PermissionsDataModel p in PermissionsDataModel.GetAllPermissions())
+            foreach (PermissionsDataModel p in PermissionsDataModel.GetAllPermissions())
+            {
+                if (view.SelectedRole.Permissions.Find(x => x.PermissionID == p.PermissionID) != null)
                 {
-                    if (view.SelectedRole.Permissions.Find(x => x.PermissionID == p.PermissionID) != null)
-                    {
-                        view.InitialAssignedPermissions.Add(p);
-                    }
-                    else
-                    {
-                        view.InitialUnassignedPermissions.Add(p);
-                    }
+                    view.InitialAssignedPermissions.Add(p);
                 }
+                else
+                {
+                    view.InitialUnassignedPermissions.Add(p);
+                }
+            }
 
-                view.TableRowMax = Math.Max(view.InitialRoles.Count, Math.Max(view.InitialAssignedPermissions.Count, view.InitialUnassignedPermissions.Count));
+            view.TableRowMax = Math.Max(view.InitialRoles.Count, Math.Max(view.InitialAssignedPermissions.Count, view.InitialUnassignedPermissions.Count));
 
             TempData["PreviousView"] = view;
             return RedirectToAction("AssignPermissions");
@@ -50,7 +50,6 @@ namespace PerfectInProcess.Controllers
             view.InitialAssignedPermissions.Clear();
             view.InitialUnassignedPermissions.Clear();
 
-
             foreach (PermissionsDataModel p in PermissionsDataModel.GetAllPermissions())
             {
                 if (view.SelectedRole.Permissions.Find(x => x.PermissionID == p.PermissionID) != null)
@@ -65,7 +64,7 @@ namespace PerfectInProcess.Controllers
 
             view.TableRowMax = Math.Max(view.InitialRoles.Count, Math.Max(view.InitialAssignedPermissions.Count, view.InitialUnassignedPermissions.Count));
             view.ChangesMade = false;
-            TempData ["PreviousView"] = view;
+            TempData["PreviousView"] = view;
             return RedirectToAction("AssignPermissions");
         }
 
@@ -114,9 +113,9 @@ namespace PerfectInProcess.Controllers
             List<PermissionsDataModel> ToAdd = new List<PermissionsDataModel>();
             List<PermissionsDataModel> ToRemove = new List<PermissionsDataModel>();
 
-            foreach(PermissionsDataModel permissionAssigned in view.InitialAssignedPermissions)
+            foreach (PermissionsDataModel permissionAssigned in view.InitialAssignedPermissions)
             {
-                if(view.SelectedRole.Permissions.Find(x => x.PermissionID == permissionAssigned.PermissionID) == null)
+                if (view.SelectedRole.Permissions.Find(x => x.PermissionID == permissionAssigned.PermissionID) == null)
                 {
                     ToAdd.Add(permissionAssigned);
                 }
@@ -163,6 +162,6 @@ namespace PerfectInProcess.Controllers
             return RedirectToAction("AssignPermissions");
         }
 
-        #endregion
+        #endregion AssignPermissions
     }
 }

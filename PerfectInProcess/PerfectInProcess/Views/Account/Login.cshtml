@@ -22,7 +22,6 @@
                     <label for="Username" id="login" class="col-lg-2">User name</label>
                     <div class="col-lg-10">
                         @Html.TextBoxFor(Model => Model.UserName, new { @class = "form-control registertextboxes", id = "UserName", placeholder = "Username or Email",Name = "UserName", value = "" })
-                       
                     </div>
                 </div>
                 <div class="form-group">
@@ -30,12 +29,11 @@
                     <div class="col-lg-10">
                         @Html.PasswordFor(Model => Model.Password, new { @class = "form-control registertextboxes", id = "Password", placeholder = "Password", Name = "Password" })
                     </div>
-                </div>               
+                </div>
                 <div class="form-group">
                     <div class="registerbuttons">
                         <input type="button" onclick="@("window.location.href='" + @Url.Action("Index", "Home") + "'");" class="btn btn-default" value="Cancel" />
                         <input type="submit" class="btn btn-primary" value="Submit" />
-
                     </div>
                 </div>
                 <br />
@@ -51,9 +49,8 @@
                     <p><b>@Html.Raw(ViewBag.Verifed)</b></p>
 
                 }
-            </fieldset>   
+            </fieldset>
 
-          
         }
     </div>
 </body>

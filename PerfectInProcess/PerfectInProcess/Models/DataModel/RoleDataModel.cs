@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Configuration;
 
 namespace PerfectInProcess.Models.DataModel
 {
@@ -32,17 +30,17 @@ namespace PerfectInProcess.Models.DataModel
 
                         Permissions.Clear();
                         Boolean first = true;
-                        
+
                         while (reader.Read())
                         {
                             Permissions.Add(new PermissionsDataModel((int)reader[3], (string)reader[4], (string)reader[5], (string)reader[6], (string)reader[7], (int)reader[8]));
 
-                            if(!PermissionGroups.Contains((string)reader[5]))
+                            if (!PermissionGroups.Contains((string)reader[5]))
                             {
                                 PermissionGroups.Add((string)reader[5]);
                             }
 
-                            if(first)
+                            if (first)
                             {
                                 first = false;
                                 RoleID = (int)reader[0];
@@ -50,7 +48,6 @@ namespace PerfectInProcess.Models.DataModel
                                 RiskLevel = (int)reader[2];
                             }
                         }
-
                     }
                 }
             }
@@ -96,7 +93,6 @@ namespace PerfectInProcess.Models.DataModel
             return false;
         }
 
-
         public static List<RoleDataModel> GetAllRoles()
         {
             List<RoleDataModel> Roles = new List<RoleDataModel>();
@@ -117,7 +113,7 @@ namespace PerfectInProcess.Models.DataModel
                         }
                     }
 
-                    foreach(int roleID in RoleIDs)
+                    foreach (int roleID in RoleIDs)
                     {
                         Roles.Add(new RoleDataModel(roleID));
                     }
@@ -162,6 +158,7 @@ namespace PerfectInProcess.Models.DataModel
             }
             return false;
         }
+
         public Boolean UnassignPermissions(List<PermissionsDataModel> toRemove)
         {
             string permissionsToRemove = "";

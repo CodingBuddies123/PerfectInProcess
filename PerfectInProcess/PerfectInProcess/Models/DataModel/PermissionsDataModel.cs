@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Configuration;
 
 namespace PerfectInProcess.Models.DataModel
 {
@@ -31,7 +29,6 @@ namespace PerfectInProcess.Models.DataModel
 
         public PermissionsDataModel()
         {
-
         }
 
         public Boolean CreatePermission(string permissionName, string permissionGroupName, string controller, string action)
@@ -80,7 +77,7 @@ namespace PerfectInProcess.Models.DataModel
         {
             string permissionsToAdd = "";
 
-            foreach(PermissionsDataModel p in toAdd)
+            foreach (PermissionsDataModel p in toAdd)
             {
                 permissionsToAdd += p.PermissionID + ',';
             }
@@ -104,7 +101,6 @@ namespace PerfectInProcess.Models.DataModel
             }
             catch (SqlException ex)
             {
-                
             }
             return false;
         }

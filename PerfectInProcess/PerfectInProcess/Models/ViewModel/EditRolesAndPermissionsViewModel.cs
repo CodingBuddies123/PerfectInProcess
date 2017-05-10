@@ -1,9 +1,6 @@
-﻿using System;
+﻿using PerfectInProcess.Models.DataModel;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using PerfectInProcess.Models.DataModel;
 
 namespace PerfectInProcess.Models.ViewModel
 {

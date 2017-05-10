@@ -1,14 +1,14 @@
 /*
  * jquery.flot.tooltip
- * 
+ *
  * description: easy-to-use tooltips for Flot charts
  * version: 0.8.7
  * authors: Krzysztof Urbas @krzysu [myviews.pl],Evan Steinkerchner @Roundaround
  * website: https://github.com/krzysu/flot.tooltip
- * 
+ *
  * build on 2016-03-15
  * released under MIT License, 2012
-*/ 
+*/
 (function ($) {
     // plugin options, default values
     var defaultOptions = {
@@ -72,7 +72,6 @@
         }
 
         plot.hooks.bindEvents.push(function (plot, eventHolder) {
-
             // get plot options
             that.plotOptions = plot.getOptions();
 
@@ -210,7 +209,6 @@
                         series.yaxis.p2c(pointPrev.y), series.xaxis.p2c(pointNext.x), series.yaxis.p2c(pointNext.y), false);
 
                     if (distToLine < closestTrace.distance) {
-
                         var closestIndex = lineDistance(pointPrev.x, pointPrev.y, pos.x, pos.y) <
                             lineDistance(pos.x, pos.y, pointNext.x, pointNext.y) ? xBeforeIndex : xAfterIndex;
 
@@ -265,13 +263,13 @@
                 pos.y -= totalTipHeight;
             }
 
-	    /* 
+	    /*
 	       The section applies the new positioning ONLY if pos.x and pos.y
 	       are numbers. If they are undefined or not a number, use the last
-	       known numerical position. This hack fixes a bug that kept pie 
+	       known numerical position. This hack fixes a bug that kept pie
 	       charts from keeping their tooltip positioning.
 	     */
-	    
+
             if (isNaN(pos.x)) {
 		that.tipPosition.x = that.tipPosition.xPrev;
 	    }
@@ -286,7 +284,6 @@
 		that.tipPosition.y = pos.y;
 		that.tipPosition.yPrev = pos.y;
 	    }
-	    
         };
 
         // Quick little function for showing the tooltip.
@@ -333,7 +330,7 @@
             if( $tip.length === 0 ){
                 $tip = $('<div />').addClass(this.tooltipOptions.cssClass);
                 $tip.appendTo('body').hide().css({position: 'absolute'});
-    
+
                 if(this.tooltipOptions.defaultTheme) {
                     $tip.css({
                         'background': '#fff',
@@ -370,7 +367,7 @@
         var yPatternWithoutPrecision = "%y";
         var customTextPattern = "%ct";
 	var nPiePattern = "%n";
-	
+
         var x, y, customText, p, n;
 
         // for threshold plugin we need to read data from different place
@@ -385,7 +382,7 @@
 		x = item.datapoint[0];
 		y = item.datapoint[1];
 	    }
-	    
+
         else if (typeof item.series.lines !== "undefined" && item.series.lines.steps) {
             x = item.series.datapoints.points[item.dataIndex * 2];
             y = item.series.datapoints.points[item.dataIndex * 2 + 1];
@@ -413,7 +410,7 @@
         }
 
 	/* replacement of %ct and other multi-character templates must
-	   precede the replacement of single-character templates 
+	   precede the replacement of single-character templates
 	   to avoid conflict between '%c' and '%ct'  and similar substrings
 	*/
 	if (customText)
@@ -424,7 +421,7 @@
             p = item.series.percent;
         } else if (typeof (item.series.percents) !== 'undefined') {
             p = item.series.percents[item.dataIndex];
-        }        
+        }
         if (typeof p === 'number') {
             content = this.adjustValPrecision(percentPattern, content, p);
         }
@@ -438,7 +435,7 @@
 	if (typeof n === 'number') {
             content = content.replace(nPiePattern, n);
 	}
-	
+
         // series match
         if (typeof(item.series.label) !== 'undefined') {
             content = content.replace(seriesPattern, item.series.label);
@@ -446,7 +443,7 @@
             //remove %s if label is undefined
             content = content.replace(seriesPattern, "");
         }
-        
+
         // color match
         if (typeof(item.series.color) !== 'undefined') {
             content = content.replace(colorPattern, item.series.color);
@@ -489,7 +486,6 @@
 
         // change x from number to given label, if given
         if (typeof item.series.xaxis.ticks !== 'undefined') {
-
             var ticks;
             if (this.hasRotatedXAxisTicks(item)) {
                 // xaxis.ticks will be an empty array if tickRotor is being used, but the values are available in rotatedTicks
@@ -561,7 +557,6 @@
 
     //
     FlotTooltip.prototype.adjustValPrecision = function (pattern, content, value) {
-
         var precision;
         var matchResult = content.match(pattern);
         if( matchResult !== null ) {
@@ -600,5 +595,4 @@
         name: 'tooltip',
         version: '0.8.5'
     });
-
 })(jQuery);

@@ -28,7 +28,7 @@
         var totalHeight = rowHeight + (CellCount * rowHeight);
         var padding = 20;
         $('.tableScroll').height(totalHeight + padding + 'px');
-        
+
     });
 </script>
 
@@ -45,7 +45,6 @@
         overflow-y:scroll;
     }
 </style>
-
 
 <h2>Assign Permissions</h2>
 
@@ -220,8 +219,6 @@
             <input type="button" class="btn btn-primary" value="Cancel" onclick="cancelButtonClick()" />
         </div>
     </div>
-
-
 
         @Html.HiddenFor(m => m.TableHeight, new { id = "hidTableHeight" });
 }

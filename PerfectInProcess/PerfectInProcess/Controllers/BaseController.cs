@@ -1,18 +1,16 @@
-﻿using System;
+﻿using PerfectInProcess.Models.DataModel;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using PerfectInProcess.Models.DataModel;
 
 namespace PerfectInProcess.Controllers
 {
     public class BaseController : Controller
     {
         protected AccountDataModel Account;
-        string Controller;
-        string Action;
+        private string Controller;
+        private string Action;
 
         protected override void Initialize(RequestContext requestContext)
         {
@@ -21,13 +19,12 @@ namespace PerfectInProcess.Controllers
             this.VerifyPermissions();
             ViewBag.Permissions = GenerateViewBagPermissionList();
             ViewBag.PermissionGroups = GenerateViewBagPermissionGroupList();
-            
         }
 
         private void LoadBase()
         {
             //Load Account
-            if(Session["AccountDataModel"] == null)
+            if (Session["AccountDataModel"] == null)
             {
                 Account = new AccountDataModel();
                 Session["AccountDataModel"] = Account;
@@ -90,7 +87,6 @@ namespace PerfectInProcess.Controllers
             return TempData[key];
         }
 
-
         private void VerifyPermissions()
         {
             Controller = this.ControllerContext.RouteData.Values["controller"].ToString();
@@ -100,7 +96,6 @@ namespace PerfectInProcess.Controllers
             {
                 //redirect
             }
-
         }
     }
 }

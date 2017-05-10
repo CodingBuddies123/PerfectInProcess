@@ -1,6 +1,5 @@
 //Flot Line Chart
 $(document).ready(function() {
-
     var offset = 0;
     plot();
 
@@ -51,7 +50,6 @@ $(document).ready(function() {
 
 //Flot Pie Chart
 $(function() {
-
     var data = [{
         label: "Series 0",
         data: 1
@@ -85,7 +83,6 @@ $(function() {
             defaultTheme: false
         }
     });
-
 });
 
 //Flot Multiple Axes Line Chart
@@ -1088,7 +1085,6 @@ $(function() {
                     // console.log(flotItem, $tooltipEl);
                 }
             }
-
         });
     }
 
@@ -1102,7 +1098,6 @@ $(function() {
 //Flot Moving Line Chart
 
 $(function() {
-
     var container = $("#flot-line-chart-moving");
 
     // Determine how many data points to keep based on the placeholder's initial size;
@@ -1115,7 +1110,6 @@ $(function() {
     var data = [];
 
     function getRandomData() {
-
         if (data.length) {
             data = data.slice(1);
         }
@@ -1196,13 +1190,11 @@ $(function() {
         plot.setData(series);
         plot.draw();
     }, 40);
-
 });
 
 //Flot Bar Chart
 
 $(function() {
-
     var barOptions = {
         series: {
             bars: {
@@ -1238,5 +1230,4 @@ $(function() {
         ]
     };
     $.plot($("#flot-bar-chart"), [barData], barOptions);
-
 });

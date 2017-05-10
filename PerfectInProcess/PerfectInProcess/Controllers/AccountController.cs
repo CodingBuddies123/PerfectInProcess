@@ -1,23 +1,18 @@
 ﻿using PerfectInProcess.Models.DataModel;
 using PerfectInProcess.Models.ViewModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace PerfectInProcess.Controllers
 {
     public class AccountController : BaseController
     {
-
         #region Register
-        // GET: Account 
+
+        // GET: Account
         public ActionResult Register()
         {
             return View("Register");
         }
-
 
         [HttpPost]
         public ActionResult RegisterAccount(RegisterViewModel viewModel)
@@ -29,7 +24,7 @@ namespace PerfectInProcess.Controllers
 
                 if (RegisterAccount.GetError().Count != 0)
                 {
-                    //if errors get all errors from list tro display to page 
+                    //if errors get all errors from list tro display to page
                     foreach (string error in (RegisterAccount.GetError()))
                     {
                         ModelState.AddModelError("", error);
@@ -52,6 +47,7 @@ namespace PerfectInProcess.Controllers
                 return View("Register");
             }
         }
+
         public ActionResult EmailVerify()
         {
             RegisterDataModel RegisteredAccount = new RegisterDataModel();
@@ -79,6 +75,7 @@ namespace PerfectInProcess.Controllers
             //Directs to Login page
             return View("Login");
         }
+
         public ActionResult ResendVerification()
         {
             RegisterDataModel RegisteredAccount = new RegisterDataModel(base.Account.Email, base.Account.AccountId);
@@ -96,16 +93,16 @@ namespace PerfectInProcess.Controllers
                 return View("TokenExpired");
             }
 
-
             ViewBag.Sent = "New verification email was sent to the email on file.";
 
             //Directs to Login page
             return View("VerifyEmail");
         }
-        #endregion
 
+        #endregion Register
 
         #region Login
+
         public ActionResult Login()
         {
             return View("Login");
@@ -114,7 +111,6 @@ namespace PerfectInProcess.Controllers
         [HttpPost]
         public ActionResult LoginSubmit(LoginViewModel viewModel)
         {
-
             if (ModelState.IsValid)
             {
                 return View("Index");
@@ -123,14 +119,8 @@ namespace PerfectInProcess.Controllers
             {
                 return View("Login");
             }
-
-
         }
-        #endregion
 
-        #region Profile
-     
-
-        #endregion
+        #endregion Login
     }
 }
