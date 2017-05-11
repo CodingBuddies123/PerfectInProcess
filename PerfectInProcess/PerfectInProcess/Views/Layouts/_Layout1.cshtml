@@ -10,6 +10,9 @@
             $('.menu-togglesidebar-btn').toggleClass("hidden");
             $('.w3-overlay').toggleClass("overlay-toggle-show");
             $('.menu-sidebar-container').toggleClass("hidden");
+            $('.PermissionGroup').addClass("hidden");
+            $('.inactive-carrot').removeClass('hidden');
+            $('.active-carrot').addClass('hidden');
         }
 
         function openMenuList(x) {
@@ -56,7 +59,9 @@
             </a>
 
         </div>
-        <div class="col-lg-4 menu-topbar-Container-midalign"></div>
+        <div class="col-lg-4 menu-topbar-Container-midalign">
+            <h1 class="logo" onclick="location.href='@Url.Action("Index", "Home")'">Perfect In Process</h1>
+        </div>
         <div class="col-lg-4 menu-topbar-Container-rightalign"></div>
         
     </div>
