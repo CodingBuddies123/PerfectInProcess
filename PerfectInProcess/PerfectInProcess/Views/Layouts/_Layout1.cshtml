@@ -14,9 +14,22 @@
 
         function openMenuList(x) {
             var id = $(x).attr('id');
-            $('.PermissionGroup').addClass("hidden");
-            $('.' + id).removeClass("hidden");
-
+            if ($('.' + id).hasClass('hidden'))
+            {
+                $('.PermissionGroup').addClass('hidden');
+                $('.' + id).removeClass('hidden');
+                $('.inactive-carrot').removeClass('hidden');
+                $('.active-carrot').addClass('hidden');
+                $(x).children('span.active-carrot').removeClass('hidden');
+                $(x).children('span.inactive-carrot').addClass('hidden');
+            }
+            else
+            {
+                $('.PermissionGroup').addClass("hidden");
+                $('.inactive-carrot').removeClass('hidden');
+                $('.active-carrot').addClass('hidden');
+            }
+            
         }
 
 
@@ -54,21 +67,30 @@
     <div class="menu-sidebar-container hidden">
         <ul>
             <li>
-                <a id="parent_Home" class="w3-bar-item w3-button w3-border-bottom menu-sidebar-listitem" onclick="openMenuList(this)">Link 1</a>
+                <a id="parent_Home" class="w3-bar-item w3-button w3-border-bottom menu-sidebar-listitem" onclick="openMenuList(this)">Link 1
+                    <span class="active-carrot 	glyphicon glyphicon-triangle-bottom hidden"></span>
+                    <span class="inactive-carrot glyphicon glyphicon-triangle-right"></span>
+                </a>
                 <ul class="parent_Home PermissionGroup hidden">
                     <li class="w3-bar-item w3-button w3-border-bottom">Link 1-1</li>
                     <li class="w3-bar-item w3-button w3-border-bottom">Link 1-2</li>
                 </ul>
             </li>
             <li>
-                <a id="parent_Account" class="w3-bar-item w3-button w3-border-bottom menu-sidebar-listitem" onclick="openMenuList(this)">Link 2</a>
+                <a id="parent_Account" class="w3-bar-item w3-button w3-border-bottom menu-sidebar-listitem" onclick="openMenuList(this)">Link 2
+                    <span class="active-carrot 	glyphicon glyphicon-triangle-bottom hidden"></span>
+                    <span class="inactive-carrot glyphicon glyphicon-triangle-right"></span>
+                </a>
                 <ul class="parent_Account PermissionGroup hidden">
                     <li class="w3-bar-item w3-button w3-border-bottom">Link 2-1</li>
                     <li class="w3-bar-item w3-button w3-border-bottom">Link 2-2</li>
                 </ul>
             </li>
             <li>
-                <a id="parent_Workout" class="w3-bar-item w3-button w3-border-bottom menu-sidebar-listitem" onclick="openMenuList(this)">Link 3</a>
+                <a id="parent_Workout" class="w3-bar-item w3-button w3-border-bottom menu-sidebar-listitem" onclick="openMenuList(this)">Link 3
+                    <span class="active-carrot 	glyphicon glyphicon-triangle-bottom hidden"></span>
+                    <span class="inactive-carrot glyphicon glyphicon-triangle-right"></span>
+                </a>
                 <ul class="parent_Workout PermissionGroup hidden">
                     <li class="w3-bar-item w3-button w3-border-bottom">Link 3-1</li>
                     <li class="w3-bar-item w3-button w3-border-bottom">Link 3-2</li>
