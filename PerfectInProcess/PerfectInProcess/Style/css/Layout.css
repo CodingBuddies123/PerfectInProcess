@@ -1,0 +1,113 @@
+﻿body {
+}
+
+/*Top Menu*/
+.menu-topbar-Container {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: darkblue;
+    position: fixed;
+    width: 100%;
+    height:50px;
+    z-index:3;
+}
+
+menu-topbar-container-leftalign {
+    
+}
+menu-topbar-container-midalign {
+    
+}
+menu-topbar-container-rightalign {
+    
+}
+
+.menu-topbar-bodypadding
+{
+    width: 100%;
+    height:50px;
+}
+
+.menu-togglesidebar-btn
+{
+    cursor: pointer;
+    height:100%;
+    background-color: none;
+    color:white;
+    text-decoration-style:none;
+}
+
+.menu-togglesidebar-btn:hover{
+    color:lightgrey;
+}
+
+.menu-togglesidebar-btn:focus{
+    color:white;
+}
+
+.menu-togglesidebar-icon
+{
+    font-size:30px;
+}
+
+.menu-togglesidebar-message
+{
+    font-size:25px;
+}
+
+
+
+/*Sidebar Menu*/
+.menu-sidebar-container
+{
+    width:300px;
+    overflow-x:hidden;
+    height: calc(100% - 50px);
+    background-color:white;
+    position:fixed;
+    z-index:5;
+}
+.menu-sidebar-container ul
+{
+    width:100%;
+    margin:0px;
+    list-style-position: inside;
+    list-style:none;
+    padding-left:0;
+
+}
+
+.menu-sidebar-container ul li 
+{
+    width:100%;
+    margin:0px;
+    text-align:left;
+}
+
+.menu-sidebar-container ul li a
+{
+    width:100%;
+    margin:0px;
+    text-align:left;
+    text-decoration:none;
+}
+
+.menu-sidebar-container ul li ul li
+{
+    width:100%;
+    margin:0px;
+    text-align:left;
+    padding-left:50px;
+}
+
+.overlay-toggle-show{
+    display:block !important;
+    z-index:2;
+}
+
+.sidebar-parentelement
+{
+
+}

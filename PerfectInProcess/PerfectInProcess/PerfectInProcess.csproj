@@ -219,6 +219,7 @@
     <Content Include="Style\Admin2\vendor\morrisjs\morris.min.js" />
     <Content Include="Style\Admin2\vendor\raphael\raphael.js" />
     <Content Include="Style\Admin2\vendor\raphael\raphael.min.js" />
+    <Content Include="Style\css\Layout.css" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -305,6 +306,7 @@
     <Content Include="Views\Account\VerifyEmail.cshtml" />
     <Content Include="Views\Account\TokenExpired.cshtml" />
     <Content Include="Views\Admin\AssignPermissions.cshtml" />
+    <Content Include="Views\Layouts\_Layout1.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -314,7 +316,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Style\css\" />
     <Folder Include="Style\js\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
