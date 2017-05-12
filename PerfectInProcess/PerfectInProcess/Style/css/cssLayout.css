@@ -1,33 +1,47 @@
 ﻿body {
 }
 
+/*Jquery Identifier Classes*/
+.menu-main-height
+{
+
+}
+
+
 /*Top Menu*/
-.menu-topbar-Container {
+.menu-main-container
+{
     list-style-type: none;
-    margin: 0;
+    margin: 0px;
     padding: 0;
     overflow: hidden;
     background-color: darkblue;
     position: fixed;
     width: 100%;
-    height:70px;
     z-index:3;
 }
-.menu-topbar-container-leftalign {
-    
+.menu-main-leftalign
+{
+    float:left;
+    text-align:left;
+    margin:0px;
 }
-.menu-topbar-container-midalign {
+.menu-main-centralalign
+{
     text-align:center;
+    margin:0px;
 }
-.menu-topbar-container-rightalign {
-    
+.menu-main-rightalign
+{
+    float:right;
+    text-align:right;
+    margin:0px;
 }
-.menu-topbar-bodypadding
+.menu-main-padding
 {
     width: 100%;
-    height:70px;
 }
-.menu-togglesidebar-btn
+.menu-toggle-btn
 {
     cursor: pointer;
     height:100%;
@@ -35,43 +49,31 @@
     color:white;
     text-decoration-style:none;
 }
-.menu-togglesidebar-btn:hover{
+.menu-toggle-btn:hover{
     color:lightgrey;
 }
-.menu-togglesidebar-btn:focus{
+.menu-toggle-btn:focus{
     color:white;
 }
-.menu-togglesidebar-icon
+.menu-toggle-icon
 {
     font-size:30px;
-    margin-top:10px;
 }
-.menu-togglesidebar-message
+.menu-toggle-message
 {
     font-size:25px;
 }
-.logo
+
+/*Secondary Menu*/
+.menu-secondary-container
 {
-    color: white;
-    font-family: Verdana, Geneva, sans-serif;
-    margin:0px;
-    margin-top:10px;
-    cursor:pointer;
-}
-
-
-
-/*Sidebar Menu*/
-.menu-sidebar-container
-{
-    width:300px;
     overflow-x:hidden;
-    height: calc(100% - 70px);
+    overflow-y:auto;
     background-color:white;
     position:fixed;
     z-index:5;
 }
-.menu-sidebar-container ul
+.menu-secondary-container ul
 {
     width:100%;
     margin:0px;
@@ -80,27 +82,41 @@
     padding-left:0;
 
 }
-.menu-sidebar-container ul li 
+.menu-secondary-container ul li 
 {
     width:100%;
     margin:0px;
     text-align:left;
 }
-.menu-sidebar-container ul li a
+.menu-secondary-container ul li a
 {
     width:100%;
     margin:0px;
     text-align:left;
     text-decoration:none;
 }
-.menu-sidebar-container ul li ul li
+.menu-secondary-container ul li ul li
 {
     width:100%;
     margin:0px;
     text-align:left;
     padding-left:50px;
 }
+.logo
+{
+    color: white;
+    font-family: Verdana, Geneva, sans-serif;
+    margin:0px;
+    cursor:pointer;
+}
+
+/*Other*/
 .overlay-toggle-show{
     display:block !important;
     z-index:2;
+}
+.content
+{
+    margin-left:2%;
+    width:90%;
 }

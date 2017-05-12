@@ -5,107 +5,63 @@
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
 
-    <script>
-        function togglemenu() {
-            $('.menu-togglesidebar-btn').toggleClass("hidden");
-            $('.w3-overlay').toggleClass("overlay-toggle-show");
-            $('.menu-sidebar-container').toggleClass("hidden");
-            $('.PermissionGroup').addClass("hidden");
-            $('.inactive-carrot').removeClass('hidden');
-            $('.active-carrot').addClass('hidden');
-        }
-
-        function openMenuList(x) {
-            var id = $(x).attr('id');
-            if ($('.' + id).hasClass('hidden'))
-            {
-                $('.PermissionGroup').addClass('hidden');
-                $('.' + id).removeClass('hidden');
-                $('.inactive-carrot').removeClass('hidden');
-                $('.active-carrot').addClass('hidden');
-                $(x).children('span.active-carrot').removeClass('hidden');
-                $(x).children('span.inactive-carrot').addClass('hidden');
-            }
-            else
-            {
-                $('.PermissionGroup').addClass("hidden");
-                $('.inactive-carrot').removeClass('hidden');
-                $('.active-carrot').addClass('hidden');
-            }
-            
-        }
-
-
-
-
-    </script>
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link href="~/Style/css/Layout.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    
+
+    <link href="~/Style/css/cssLayout.css" rel="stylesheet" />
+    <script src="~/Style/js/jsLayout.js"></script>
+    
 </head>
 <body>
-    <div class="menu-topbar-Container">
-        <div class="col-lg-4 menu-topbar-Container-leftalign">
-            <a class="btn menu-togglesidebar-btn" onclick="togglemenu()">
-                <span class="glyphicon glyphicon-menu-hamburger menu-togglesidebar-icon"></span>
-                <span class="menu-togglesidebar-message">Menu</span>
+    <div class="menu-main-container menu-main-height">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 menu-main-leftalign menu-main-height">
+            <a class="btn menu-toggle-btn" onclick="toggleSecondaryMenu()">
+                <span class="glyphicon glyphicon-menu-hamburger menu-toggle-icon"></span>
+                <span class="menu-toggle-message">Menu</span>
             </a>
-            <a class="btn menu-togglesidebar-btn hidden" onclick="togglemenu()">
-                <span class="glyphicon glyphicon-remove-circle menu-togglesidebar-icon"></span>
-                <span class="menu-togglesidebar-message">Close</span>
+            <a class="btn menu-toggle-btn hidden" onclick="toggleSecondaryMenu()">
+                <span class="glyphicon glyphicon-remove-circle menu-toggle-icon"></span>
+                <span class="menu-toggle-message">Close</span>
             </a>
-
         </div>
-        <div class="col-lg-4 menu-topbar-Container-midalign">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6 menu-main-centralalign menu-main-height">
             <h1 class="logo" onclick="location.href='@Url.Action("Index", "Home")'">Perfect In Process</h1>
         </div>
-        <div class="col-lg-4 menu-topbar-Container-rightalign"></div>
+        <div class="col-lg-4 col-md-4 col-sm-4 hidden-xs menu-main-rightalign menu-main-height"></div>
         
     </div>
-    <div class="menu-topbar-bodypadding">
-
+    <div class="menu-main-height">
+        
     </div>
     
-    <div class="menu-sidebar-container hidden">
+    <div class="menu-secondary-container hidden">
         <ul>
-            <li>
-                <a id="parent_Home" class="w3-bar-item w3-button w3-border-bottom menu-sidebar-listitem" onclick="openMenuList(this)">Link 1
-                    <span class="active-carrot 	glyphicon glyphicon-triangle-bottom hidden"></span>
-                    <span class="inactive-carrot glyphicon glyphicon-triangle-right"></span>
-                </a>
-                <ul class="parent_Home PermissionGroup hidden">
-                    <li class="w3-bar-item w3-button w3-border-bottom">Link 1-1</li>
-                    <li class="w3-bar-item w3-button w3-border-bottom">Link 1-2</li>
-                </ul>
-            </li>
-            <li>
-                <a id="parent_Account" class="w3-bar-item w3-button w3-border-bottom menu-sidebar-listitem" onclick="openMenuList(this)">Link 2
-                    <span class="active-carrot 	glyphicon glyphicon-triangle-bottom hidden"></span>
-                    <span class="inactive-carrot glyphicon glyphicon-triangle-right"></span>
-                </a>
-                <ul class="parent_Account PermissionGroup hidden">
-                    <li class="w3-bar-item w3-button w3-border-bottom">Link 2-1</li>
-                    <li class="w3-bar-item w3-button w3-border-bottom">Link 2-2</li>
-                </ul>
-            </li>
-            <li>
-                <a id="parent_Workout" class="w3-bar-item w3-button w3-border-bottom menu-sidebar-listitem" onclick="openMenuList(this)">Link 3
-                    <span class="active-carrot 	glyphicon glyphicon-triangle-bottom hidden"></span>
-                    <span class="inactive-carrot glyphicon glyphicon-triangle-right"></span>
-                </a>
-                <ul class="parent_Workout PermissionGroup hidden">
-                    <li class="w3-bar-item w3-button w3-border-bottom">Link 3-1</li>
-                    <li class="w3-bar-item w3-button w3-border-bottom">Link 3-2</li>
-                </ul>
-            </li>
+            @foreach (var permissiongroup in ViewBag.PermissionGroups)
+            {
+                <li>
+                    <a id="parent_@permissiongroup" class="w3-bar-item w3-button w3-border-bottom menu-sidebar-listitem" onclick="toggleSecondaryMenuGroup(this)">@permissiongroup
+                        <span class="active-carrot 	glyphicon glyphicon-triangle-bottom hidden"></span>
+                        <span class="inactive-carrot glyphicon glyphicon-triangle-right"></span>
+                    </a>
+                    <ul class="parent_@permissiongroup PermissionGroup hidden">
+                        @foreach (var permission in ViewBag.Permissions)
+                        {
+                            if (permission[1] == permissiongroup)
+                            {
+                                <li class="w3-bar-item w3-button w3-border-bottom" onclick="location.href='@Url.Action(@permission[2], @permission[3])'">@permission[0]</li>
+                            }
+                        }
+                    </ul>
+                </li>
+            }
         </ul>
     </div>
 
-    <div class="w3-overlay w3-animate-opacity" onclick="togglemenu()" style="cursor:pointer;"></div>
-    <div>
+    <div class="w3-overlay w3-animate-opacity" onclick="toggleSecondaryMenu()" style="cursor:pointer;"></div>
+    <div class="content">
         @RenderBody()
     </div>
 </body>

@@ -219,7 +219,8 @@
     <Content Include="Style\Admin2\vendor\morrisjs\morris.min.js" />
     <Content Include="Style\Admin2\vendor\raphael\raphael.js" />
     <Content Include="Style\Admin2\vendor\raphael\raphael.min.js" />
-    <Content Include="Style\css\Layout.css" />
+    <Content Include="Style\css\cssLayout.css" />
+    <Content Include="Style\js\jsLayout.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -316,7 +317,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Style\js\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <PropertyGroup>
