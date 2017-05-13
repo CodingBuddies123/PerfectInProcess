@@ -4,6 +4,12 @@
 
 .primaryHeaderColor
 {
+    background-color:darkgreen !important;
+    color:white !important;
+}
+
+.secondaryHeaderColor
+{
     background-color:forestgreen !important;
     color:white !important;
 }

@@ -208,9 +208,9 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-2">
+        <div class="col-lg-6">
             <div class="panel panel-default roundedCorners">
-                <div class="panel-heading primaryHeaderColor roundedCorners">Current Tasks</div>
+                <div class="panel-heading primaryHeaderColor roundedCorners">Options: Save Changes</div>
                 <div class="panel-body roundedCorners">
                         @if (Model.ChangesMade)
                         {
@@ -225,12 +225,20 @@
             </div>
             
         </div>
-        <div class="col-lg-10">
+        <div class="col-lg-3">
             <div class="panel panel-default roundedCorners">
-                <div class="panel-heading primaryHeaderColor roundedCorners">Other Options</div>
+                <div class="panel-heading secondaryHeaderColor roundedCorners">Options: Roles</div>
                 <div class="panel-body roundedCorners">
                     <input type="button" class="btn btn-primary" value="Create Role" />
                     <input type="button" class="btn btn-primary" value="Edit Roles" />
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="panel panel-default roundedCorners">
+                <div class="panel-heading secondaryHeaderColor roundedCorners">Options: Permissions</div>
+                <div class="panel-body roundedCorners">
                     <input type="button" class="btn btn-primary" value="Create Permission" />
                     <input type="button" class="btn btn-primary" value="Edit Permissions" />
                 </div>
