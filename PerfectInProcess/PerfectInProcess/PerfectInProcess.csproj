@@ -220,6 +220,7 @@
     <Content Include="Style\Admin2\vendor\raphael\raphael.js" />
     <Content Include="Style\Admin2\vendor\raphael\raphael.min.js" />
     <Content Include="Style\css\cssLayout.css" />
+    <Content Include="Style\css\cssSharedStyles.css" />
     <Content Include="Style\js\jsLayout.js" />
     <Content Include="Web.config" />
   </ItemGroup>

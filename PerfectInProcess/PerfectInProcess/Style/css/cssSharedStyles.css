@@ -1,0 +1,14 @@
+﻿body {
+
+}
+
+.primaryHeaderColor
+{
+    background-color:forestgreen !important;
+    color:white !important;
+}
+
+.roundedCorners
+{
+    border-radius:10px !important;
+}

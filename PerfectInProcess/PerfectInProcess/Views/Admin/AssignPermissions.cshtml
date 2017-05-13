@@ -46,6 +46,8 @@
     }
 </style>
 
+<link href="~/Style/css/cssSharedStyles.css" rel="stylesheet" />
+
 
 <h2>Assign Permissions</h2>
 
@@ -53,12 +55,12 @@
 {
     <div class="row">
         <div class="col-lg-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">
+            <div class="panel panel-default roundedCorners">
+                <div class="primaryHeaderColor panel-heading roundedCorners">
                    Roles: @Model.SelectedRole.RoleName
                 </div>
                 <!-- /.panel-heading -->
-                <div class="panel-body tableScroll">
+                <div class="panel-body tableScroll roundedCorners">
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
@@ -97,12 +99,12 @@
         <!-- /.col-lg-6 -->
 
         <div class="col-lg-5">
-            <div class="panel panel-default">
-                <div class="panel-heading">
+            <div class="panel panel-default roundedCorners">
+                <div class="panel-heading primaryHeaderColor roundedCorners">
                     Currently Assigned Permissions
                 </div>
                 <!-- /.panel-heading -->
-                <div class="panel-body tableScroll">
+                <div class="panel-body tableScroll roundedCorners">
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
@@ -151,8 +153,8 @@
         <!-- /.col-lg-6 -->
 
         <div class="col-lg-5">
-            <div class="panel panel-default">
-                <div class="panel-heading">
+            <div class="panel panel-default roundedCorners">
+                <div class="panel-heading primaryHeaderColor roundedCorners">
                     Currently Unassigned Permissions
                 </div>
                 <!-- /.panel-heading -->
@@ -205,23 +207,38 @@
         <!-- /.col-lg-6 -->
     </div>
 
-    <div class="col-lg-12" style="margin:10px; margin-bottom:50px">
-        <div class="col-lg-1">
-            @if (Model.ChangesMade)
-            {
-                <input type="submit" class="btn btn-primary" value="Save Changes" />
-            }
-            else
-            {
-                <input type="submit" class="btn btn-primary" value="Up to Date" disabled="disabled" />
-            }
+    <div class="row">
+        <div class="col-lg-2">
+            <div class="panel panel-default roundedCorners">
+                <div class="panel-heading primaryHeaderColor roundedCorners">Current Tasks</div>
+                <div class="panel-body roundedCorners">
+                        @if (Model.ChangesMade)
+                        {
+                            <input type="submit" class="btn btn-primary" value="Save Changes"/>
+                        }
+                        else
+                        {
+                            <input type="submit" class="btn btn-primary" value="Up to Date" disabled="disabled" />
+                        }
+                        <input type="button" class="btn btn-primary" value="Cancel" onclick="cancelButtonClick()" />
+                </div>
+            </div>
+            
         </div>
-        <div class="col-lg-1">
-            <input type="button" class="btn btn-primary" value="Cancel" onclick="cancelButtonClick()" />
+        <div class="col-lg-10">
+            <div class="panel panel-default roundedCorners">
+                <div class="panel-heading primaryHeaderColor roundedCorners">Other Options</div>
+                <div class="panel-body roundedCorners">
+                    <input type="button" class="btn btn-primary" value="Create Role" />
+                    <input type="button" class="btn btn-primary" value="Edit Roles" />
+                    <input type="button" class="btn btn-primary" value="Create Permission" />
+                    <input type="button" class="btn btn-primary" value="Edit Permissions" />
+                </div>
+            </div>
         </div>
     </div>
 
 
 
-        @Html.HiddenFor(m => m.TableHeight, new { id = "hidTableHeight" });
-}
+            @Html.HiddenFor(m => m.TableHeight, new { id = "hidTableHeight" });
+            }

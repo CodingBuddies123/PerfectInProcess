@@ -1,15 +1,11 @@
-﻿body {
-}
-
-/*Jquery Identifier Classes*/
-.menu-main-height
+﻿@media all
 {
-
-}
-
-
-/*Top Menu*/
-.menu-main-container
+    /*Main Menu*/
+    .menu-main-height
+    {
+        height:50px;
+    }
+    .menu-main-container
 {
     list-style-type: none;
     margin: 0px;
@@ -20,103 +16,157 @@
     width: 100%;
     z-index:3;
 }
-.menu-main-leftalign
-{
-    float:left;
-    text-align:left;
-    margin:0px;
-}
-.menu-main-centralalign
-{
-    text-align:center;
-    margin:0px;
-}
-.menu-main-rightalign
-{
-    float:right;
-    text-align:right;
-    margin:0px;
-}
-.menu-main-padding
-{
-    width: 100%;
-}
-.menu-toggle-btn
-{
-    cursor: pointer;
-    height:100%;
-    background-color: none;
-    color:white;
-    text-decoration-style:none;
-}
-.menu-toggle-btn:hover{
-    color:lightgrey;
-}
-.menu-toggle-btn:focus{
-    color:white;
-}
-.menu-toggle-icon
-{
-    font-size:30px;
-}
-.menu-toggle-message
-{
-    font-size:25px;
-}
+    .menu-main-leftalign
+    {
+        float:left;
+        text-align:left;
+        margin:0px;
+    }
+    .menu-main-centralalign
+    {
+        text-align:center;
+        margin:0px;
+    }
+    .menu-main-rightalign
+    {
+        float:right;
+        text-align:right;
+        margin:0px;
+    }
+    .menu-main-padding
+    {
+        width: 100%;
+    }
+    .menu-toggle-btn
+    {
+        cursor: pointer;
+        height:100%;
+        background-color: none;
+        color:white;
+        text-decoration-style:none;
+    }
+    .menu-toggle-btn:hover{
+        color:lightgrey;
+    }
+    .menu-toggle-btn:focus{
+        color:white;
+    }
+    .menu-toggle-icon
+    {
+        font-size:30px;
+    }
+    .menu-toggle-message
+    {
+        font-size:25px;
+    }
 
-/*Secondary Menu*/
-.menu-secondary-container
-{
-    overflow-x:hidden;
-    overflow-y:auto;
-    background-color:white;
-    position:fixed;
-    z-index:5;
-}
-.menu-secondary-container ul
-{
-    width:100%;
-    margin:0px;
-    list-style-position: inside;
-    list-style:none;
-    padding-left:0;
+    .logo
+    {
+        color:white;
+        font-family: Verdana, Geneva, sans-serif;
+        margin: 0px;
+        cursor: pointer;
+    }
 
-}
-.menu-secondary-container ul li 
-{
-    width:100%;
-    margin:0px;
-    text-align:left;
-}
-.menu-secondary-container ul li a
-{
-    width:100%;
-    margin:0px;
-    text-align:left;
-    text-decoration:none;
-}
-.menu-secondary-container ul li ul li
-{
-    width:100%;
-    margin:0px;
-    text-align:left;
-    padding-left:50px;
-}
-.logo
-{
-    color: white;
-    font-family: Verdana, Geneva, sans-serif;
-    margin:0px;
-    cursor:pointer;
-}
+    /*Secondary Menu*/
+    .menu-secondary-container
+    {
+        overflow-x:hidden;
+        overflow-y:auto;
+        background-color:white;
+        position:fixed;
+        height: calc(100% - 50px);
+        z-index:5;
+        width:300px;
+    }
+    .menu-secondary-container ul
+    {
+        width:100%;
+        margin:0px;
+        list-style-position: inside;
+        list-style:none;
+        padding-left:0;
 
-/*Other*/
-.overlay-toggle-show{
+    }
+    .menu-secondary-container ul li 
+    {
+        width:100%;
+        margin:0px;
+        text-align:left;
+    }
+    .menu-secondary-container ul li a
+    {
+        width:100%;
+        margin:0px;
+        text-align:left;
+        text-decoration:none;
+    }
+    .menu-secondary-container ul li ul li
+    {
+        width:100%;
+        margin:0px;
+        text-align:left;
+        padding-left:50px;
+    }
+
+    /*Other*/
+    .content
+    {
+        margin-left:2%;
+        width:90%;
+    }
+    .overlay-toggle-show{
     display:block !important;
     z-index:2;
 }
-.content
+}
+
+
+@media(max-width:400px)
 {
-    margin-left:2%;
-    width:90%;
+    .logo
+    {
+        font-size:20px;
+    }
+}
+
+/* Extra Small */
+@media(min-width:401px) and (max-width:767px)
+{
+    .logo
+    {
+        font-size:24px;
+    }
+
+    .menu-main-centralalign{
+        text-align:left;
+    }
+}
+
+/* Small */
+@media(min-width:768px) and (max-width:991px)
+{
+    .logo
+    {
+        font-size:25px;
+    }
+
+}
+
+/* Medium */
+@media(min-width:992px) and (max-width:1199px)
+{
+     .logo
+    {
+        font-size:30px;
+    }
+}
+
+/* Large */
+@media(min-width:1200px)
+{
+    .logo
+    {
+        font-size:40px;
+    }
 }
