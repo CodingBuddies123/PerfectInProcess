@@ -4,14 +4,13 @@
 
 .primaryHeaderColor
 {
-    background-color:darkgreen !important;
+    background-color:orangered !important;
     color:white !important;
 }
 
-.secondaryHeaderColor
-{
-    background-color:forestgreen !important;
-    color:white !important;
+.secondaryHeaderColor {
+    background-color: black !important;
+    color: white !important;
 }
 
 .roundedCorners

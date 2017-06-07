@@ -14,7 +14,7 @@ namespace PerfectInProcess.Models.ViewModel
         public List<PermissionsDataModel> InitialAssignedPermissions = new List<PermissionsDataModel>();
         public List<PermissionsDataModel> InitialUnassignedPermissions = new List<PermissionsDataModel>();
         public int TableRowMax = 0;
-        public int TableHeight = 8;
+        public int TableHeight = 5;
         public int SelectedRow = -1;
         public Boolean ChangesMade = false;
     }
